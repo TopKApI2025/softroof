@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="auto">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
@@ -31,17 +31,19 @@
         .menu-card { background: #ffffff; border-radius: 20px; padding: 1.2rem 1.4rem; border: 1px solid #ece8df; transition: 0.18s linear; }
         .menu-card:hover { border-color: #cfe0c2; background: #fffef9; }
         .item-name { font-size: 1.4rem; font-weight: 700; color: #345e25; }
-        .item-desc { font-size: 0.85rem; color: #6e6a5e; margin: 0.6rem 0 0.4rem; }
+        .item-desc { font-size: 0.85rem; color: #6e6a5e; margin: 0.6rem 0 0.4rem; line-height: 1.5; }
         .price { font-size: 1.2rem; font-weight: 600; color: #578b3b; margin-top: 0.7rem; border-top: 1px solid #f0efea; padding-top: 0.6rem; }
         .section-title { font-size: 1.7rem; font-weight: 600; margin-bottom: 1.3rem; color: #417c2c; border-left: 4px solid #bdd3ac; padding-left: 0.8rem; }
         .footer-note { text-align: center; margin-top: 3.5rem; font-size: 0.75rem; color: #acb89d; border-top: 1px solid #ece4d8; padding-top: 1.8rem; }
         .refresh-status { position: fixed; bottom: 20px; right: 20px; background: #3f6830; color: white; padding: 6px 12px; border-radius: 20px; font-size: 0.7rem; font-family: monospace; opacity: 0.7; pointer-events: none; }
-        @media (max-width: 680px) { .cafe-container { padding: 1rem; } .cafe-name { font-size: 1.5rem; } .cat-btn { padding: 0.4rem 1.2rem; font-size: 0.85rem; } .logo-img { width: 78px; height: 78px; } }
         
         /* RTL Support for Arabic */
         body.rtl { direction: rtl; text-align: right; }
         body.rtl .section-title { border-left: none; border-right: 4px solid #bdd3ac; padding-left: 0; padding-right: 0.8rem; }
         body.rtl .price { text-align: right; }
+        body.rtl .social-links { flex-direction: row-reverse; }
+        
+        @media (max-width: 680px) { .cafe-container { padding: 1rem; } .cafe-name { font-size: 1.5rem; } .cat-btn { padding: 0.4rem 1.2rem; font-size: 0.85rem; } .logo-img { width: 78px; height: 78px; } }
     </style>
 </head>
 <body>
@@ -70,26 +72,41 @@
     let currentMenuData = null, allSections = [], autoRefreshInterval = null;
     
     // Detect Arabic text and enable RTL
-    function detectAndEnableRTL(text) {
-        const arabicPattern = /[\u0600-\u06FF]/;
-        if (arabicPattern.test(text)) {
-            document.body.classList.add('rtl');
-            return true;
+    function detectAndEnableRTL() {
+        if (!currentMenuData) return;
+        const arabicPattern = /[\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\uFB50-\uFDFF\uFE70-\uFEFF]/;
+        let hasArabic = false;
+        
+        for (let cat of currentMenuData) {
+            if (arabicPattern.test(cat.label) || arabicPattern.test(cat.title)) {
+                hasArabic = true;
+                break;
+            }
+            for (let item of cat.items) {
+                if (arabicPattern.test(item.name) || arabicPattern.test(item.desc)) {
+                    hasArabic = true;
+                    break;
+                }
+            }
         }
-        return false;
+        
+        if (hasArabic) {
+            document.body.classList.add('rtl');
+            document.documentElement.lang = 'ar';
+        } else {
+            document.body.classList.remove('rtl');
+            document.documentElement.lang = 'en';
+        }
     }
     
     async function loadMenuFromJSON() {
         try {
             const response = await fetch(`data.json?t=${Date.now()}`);
-            const data = await response.json();
+            const text = await response.text();
+            const data = JSON.parse(text);
             currentMenuData = data.menuCatalog;
             renderFullMenu();
-            
-            // Check for Arabic in first item
-            if (currentMenuData[0]?.items[0]?.name) {
-                detectAndEnableRTL(currentMenuData[0].items[0].name);
-            }
+            detectAndEnableRTL();
             
             document.getElementById('refreshStatus').style.opacity = '1';
             document.getElementById('refreshStatus').textContent = '✓ Menu updated';
@@ -99,6 +116,7 @@
             }, 2000);
             return true;
         } catch (error) {
+            console.error('Error:', error);
             document.getElementById('sectionsArea').innerHTML = '<div style="text-align:center;padding:2rem;">⚠️ Unable to load menu. Please ensure data.json exists.</div>';
             return false;
         }
@@ -149,7 +167,15 @@
         if (allSections.length) { allSections[0].classList.add('active-section'); }
     }
     
-    function escapeHtml(str) { if (!str) return ''; return str.replace(/[&<>]/g, function(m) { if (m === '&') return '&amp;'; if (m === '<') return '&lt;'; if (m === '>') return '&gt;'; return m; }); }
+    function escapeHtml(str) { 
+        if (!str) return ''; 
+        return str.replace(/[&<>]/g, function(m) { 
+            if (m === '&') return '&amp;'; 
+            if (m === '<') return '&lt;'; 
+            if (m === '>') return '&gt;'; 
+            return m; 
+        }); 
+    }
     
     function startAutoRefresh() { if (autoRefreshInterval) clearInterval(autoRefreshInterval); autoRefreshInterval = setInterval(() => { loadMenuFromJSON(); }, 5000); }
     
