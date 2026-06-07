@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>green bean cafe | handmade menu</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bona+Nova+SC:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: #fefaf5; font-family: 'Bona Nova SC', serif; color: #2c2b26; line-height: 1.4; }
+        .cafe-container { max-width: 1280px; margin: 0 auto; padding: 2rem 1.5rem 3rem; }
+        .handmade-line { width: 70px; height: 2px; background: #d0d9c6; margin: 0.75rem auto 0.5rem; border-radius: 2px; }
+        .logo-block { text-align: center; margin: 1.2rem 0 1rem; }
+        .logo-img { width: 96px; height: 96px; object-fit: cover; background: #e6efdf; border-radius: 50%; border: 1px solid #d9e2ce; }
+        .cafe-name { font-size: 1.9rem; font-weight: 700; margin-top: 1rem; color: #3f5c2f; }
+        .tagline { font-size: 0.8rem; font-style: italic; color: #8b9a7b; margin-top: 0.25rem; }
+        .social-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 1.6rem; margin: 1.1rem 0 0.5rem; }
+        .social-icon { color: #4f6b3c; font-size: 1.3rem; background: #ffffffcc; width: 38px; height: 38px; display: inline-flex; align-items: center; justify-content: center; border-radius: 40px; text-decoration: none; border: 1px solid #e2e9d9; transition: 0.2s ease; }
+        .social-icon:hover { color: #2b6e2f; background: #f3f8ef; transform: translateY(-2px); }
+        .scroll-menu { margin: 2rem 0 2rem; overflow-x: auto; white-space: nowrap; scrollbar-width: thin; padding-bottom: 0.5rem; }
+        .menu-buttons { display: inline-flex; gap: 0.7rem; }
+        .cat-btn { font-family: 'Bona Nova SC', serif; background: #fffaf4; border: 1px solid #e5ecd9; padding: 0.6rem 1.5rem; font-size: 1rem; border-radius: 40px; cursor: pointer; color: #3b5530; transition: all 0.2s; }
+        .cat-btn.active { background: #3f6830; color: white; border-color: #3f6830; }
+        .cat-btn:hover:not(.active) { background: #eef5e8; }
+        .sections-area { margin-top: 1.8rem; min-height: 55vh; }
+        .menu-section { display: none; animation: softFade 0.25s ease; }
+        .menu-section.active-section { display: block; }
+        @keyframes softFade { 0% { opacity: 0; transform: translateY(6px); } 100% { opacity: 1; transform: translateY(0); } }
+        .simple-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.5rem; }
+        .menu-card { background: #ffffff; border-radius: 20px; padding: 1.2rem 1.4rem; border: 1px solid #ece8df; transition: 0.18s linear; }
+        .menu-card:hover { border-color: #cfe0c2; background: #fffef9; }
+        .item-name { font-size: 1.4rem; font-weight: 700; color: #345e25; }
+        .item-desc { font-size: 0.85rem; color: #6e6a5e; margin: 0.6rem 0 0.4rem; }
+        .price { font-size: 1.2rem; font-weight: 600; color: #578b3b; margin-top: 0.7rem; border-top: 1px solid #f0efea; padding-top: 0.6rem; }
+        .section-title { font-size: 1.7rem; font-weight: 600; margin-bottom: 1.3rem; color: #417c2c; border-left: 4px solid #bdd3ac; padding-left: 0.8rem; }
+        .footer-note { text-align: center; margin-top: 3.5rem; font-size: 0.75rem; color: #acb89d; border-top: 1px solid #ece4d8; padding-top: 1.8rem; }
+        .refresh-status { position: fixed; bottom: 20px; right: 20px; background: #3f6830; color: white; padding: 6px 12px; border-radius: 20px; font-size: 0.7rem; font-family: monospace; opacity: 0.7; pointer-events: none; }
+        @media (max-width: 680px) { .cafe-container { padding: 1rem; } .cafe-name { font-size: 1.5rem; } .cat-btn { padding: 0.4rem 1.2rem; font-size: 0.85rem; } .logo-img { width: 78px; height: 78px; } }
+    </style>
+</head>
+<body>
+<div class="cafe-container">
+    <div class="logo-block">
+        <img src="https://topkapi2025.github.io/logo.jpg" alt="green bean cafe" class="logo-img" id="mainLogo">
+        <div class="cafe-name">green bean cafe</div>
+        <div class="tagline">handmade · honest food</div>
+        <div class="handmade-line"></div>
+    </div>
+    <div class="social-links">
+        <a href="#" class="social-icon" target="_blank"><i class="fab fa-tiktok"></i></a>
+        <a href="#" class="social-icon" target="_blank"><i class="fab fa-instagram"></i></a>
+        <a href="#" class="social-icon" target="_blank"><i class="fab fa-whatsapp"></i></a>
+        <a href="#" class="social-icon" target="_blank"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" class="social-icon"><i class="fas fa-map-marker-alt"></i></a>
+        <a href="#" class="social-icon"><i class="fas fa-phone-alt"></i></a>
+    </div>
+    <div class="scroll-menu"><div class="menu-buttons" id="categoryButtons"></div></div>
+    <div class="sections-area" id="sectionsArea"></div>
+    <div class="footer-note"><span>from our small kitchen — served with care</span></div>
+</div>
+<div class="refresh-status" id="refreshStatus">Live menu • auto-sync</div>
+
+<script>
+    let currentMenuData = null, allSections = [], autoRefreshInterval = null;
+    async function loadMenuFromJSON() {
+        try {
+            const response = await fetch(`data.json?t=${Date.now()}`);
+            const data = await response.json();
+            currentMenuData = data.menuCatalog;
+            renderFullMenu();
+            document.getElementById('refreshStatus').style.opacity = '1';
+            document.getElementById('refreshStatus').textContent = '✓ Menu updated';
+            setTimeout(() => { document.getElementById('refreshStatus').style.opacity = '0.7'; document.getElementById('refreshStatus').textContent = 'Live menu • auto-sync'; }, 2000);
+            return true;
+        } catch (error) {
+            document.getElementById('sectionsArea').innerHTML = '<div style="text-align:center;padding:2rem;">⚠️ Unable to load menu. Please ensure data.json exists.</div>';
+            return false;
+        }
+    }
+    function renderFullMenu() { if (!currentMenuData) return; buildNavButtons(); createMenuSections(); }
+    function buildNavButtons() {
+        const container = document.getElementById('categoryButtons');
+        container.innerHTML = '';
+        currentMenuData.forEach((cat, index) => {
+            const btn = document.createElement('button');
+            btn.className = 'cat-btn' + (index === 0 ? ' active' : '');
+            btn.textContent = cat.label;
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                allSections.forEach(section => { section.classList.toggle('active-section', section.dataset.sectionId === cat.id); });
+            });
+            container.appendChild(btn);
+        });
+    }
+    function createMenuSections() {
+        const sectionsArea = document.getElementById('sectionsArea');
+        sectionsArea.innerHTML = '';
+        allSections = [];
+        currentMenuData.forEach(category => {
+            const sectionDiv = document.createElement('div');
+            sectionDiv.className = 'menu-section';
+            sectionDiv.dataset.sectionId = category.id;
+            const titleEl = document.createElement('h3');
+            titleEl.className = 'section-title';
+            titleEl.textContent = category.title;
+            sectionDiv.appendChild(titleEl);
+            const gridWrapper = document.createElement('div');
+            gridWrapper.className = 'simple-grid';
+            category.items.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'menu-card';
+                card.innerHTML = `<div class="item-name">${escapeHtml(item.name)}</div><div class="item-desc">${escapeHtml(item.desc)}</div><div class="price">${escapeHtml(item.price)}</div>`;
+                gridWrapper.appendChild(card);
+            });
+            sectionDiv.appendChild(gridWrapper);
+            sectionsArea.appendChild(sectionDiv);
+            allSections.push(sectionDiv);
+        });
+        if (allSections.length) { allSections[0].classList.add('active-section'); }
+    }
+    function escapeHtml(str) { if (!str) return ''; return str.replace(/[&<>]/g, function(m) { if (m === '&') return '&amp;'; if (m === '<') return '&lt;'; if (m === '>') return '&gt;'; return m; }); }
+    function startAutoRefresh() { if (autoRefreshInterval) clearInterval(autoRefreshInterval); autoRefreshInterval = setInterval(() => { loadMenuFromJSON(); }, 5000); }
+    document.getElementById('mainLogo').onerror = function() { this.style.backgroundColor = "#e0edcf"; };
+    loadMenuFromJSON();
+    startAutoRefresh();
+</script>
+</body>
+</html>
