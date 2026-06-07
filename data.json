@@ -1,189 +1,200 @@
 {
   "menuCatalog": [
     {
-      "id": "morning",
-      "label": "Morning",
-      "title": "تيست عربي",
+      "id": "hot-drinks",
+      "label": "Hot Drinks",
+      "title": "مشروبات ساخنة",
       "items": [
-        {
-          "name": "اول منتج",
-          "desc": "organic eggs, chives, sourdough toast",
-          "price": "80"
-        },
-        {
-          "name": "granola & yogurt",
-          "desc": "honey, seasonal berries, toasted oats",
-          "price": "$7.2"
-        },
-        {
-          "name": "avocado toast",
-          "desc": "mashed avocado, lemon, radish, sea salt",
-          "price": "$9.0"
-        },
-        {
-          "name": "منتج جديد",
-          "desc": "وصف المنتج",
-          "price": "43"
-        }
+        { "name": "Tea", "desc": "شاي", "price": "40.00" },
+        { "name": "Green Tea", "desc": "شاي اخضر", "price": "50.00" },
+        { "name": "Tea with Milk", "desc": "شاي بالبن", "price": "70.00" },
+        { "name": "Tea with Flavors", "desc": "شاي نكهات", "price": "55.00" },
+        { "name": "Pot Tea", "desc": "براد شاي", "price": "80.00" },
+        { "name": "Anise", "desc": "ينسون", "price": "40.00" },
+        { "name": "Mint", "desc": "نعناع", "price": "40.00" },
+        { "name": "Ginger", "desc": "زنجبيل", "price": "60.00" },
+        { "name": "Hibiscus", "desc": "كركديه", "price": "40.00" },
+        { "name": "Cinnamon", "desc": "قرفه", "price": "60.00" },
+        { "name": "Cinnamon with Milk", "desc": "قرفه بالبن", "price": "75.00" },
+        { "name": "Hot Cider", "desc": "هوت سيدر", "price": "75.00" },
+        { "name": "Herbs Cocktail", "desc": "كوكتيل اعشاب", "price": "70.00" },
+        { "name": "Sahlab Nuts", "desc": "سحلب مكسرات", "price": "90.00" },
+        { "name": "Sahlab Fruits", "desc": "سحلب فواكه", "price": "130.00" },
+        { "name": "Sahlab Oreo", "desc": "سحلب اوريو", "price": "120.00" }
+      ]
+    },
+    {
+      "id": "soda",
+      "label": "Soda Cocktail",
+      "title": "كوكتيل الصودا",
+      "items": [
+        { "name": "Mojito", "desc": "موهيتو", "price": "90.00" },
+        { "name": "Scotch Menit", "desc": "سكوتش مينت", "price": "90.00" },
+        { "name": "Sunshine", "desc": "صن شاين", "price": "90.00" },
+        { "name": "Blue Sky", "desc": "بلو سكاي", "price": "90.00" },
+        { "name": "Cherry Cola", "desc": "شيري كولا", "price": "90.00" },
+        { "name": "electric lemon", "desc": "الكتريك ليمون", "price": "100.00" },
+        { "name": "Superman", "desc": "سوبرمان", "price": "115.00" },
+        { "name": "Redbull Passion Fruit", "desc": "ردبول باشون فروت", "price": "120.00" }
       ]
     },
     {
       "id": "coffee",
       "label": "Coffee",
-      "title": "مشروبات سخنه",
+      "title": "قهوة",
       "items": [
-        {
-          "name": "house drip",
-          "desc": "single origin, medium-dark roast",
-          "price": "$3.5"
-        },
-        {
-          "name": "oat latte",
-          "desc": "double espresso, steamed oat milk",
-          "price": "$4.8"
-        },
-        {
-          "name": "cortado",
-          "desc": "balanced, smooth, small & strong",
-          "price": "$4.0"
-        },
-        {
-          "name": "cold filter",
-          "desc": "12-hour steep, light & floral",
-          "price": "$4.5"
-        }
+        { "name": "Turkish Coffee", "desc": "قهوة تركي", "price": "55.00" },
+        { "name": "Turkish Coffee (D)", "desc": "قهوة تركي دبل", "price": "65.00" },
+        { "name": "French Coffee", "desc": "قهوة فرنساوي", "price": "70.00" },
+        { "name": "Hazelnut Coffee", "desc": "قهوة بندق", "price": "75.00" },
+        { "name": "Nutella Coffee", "desc": "قهوة نوتيلا", "price": "65.00" },
+        { "name": "Espresso Single", "desc": "اسبرسو سنجل", "price": "60.00" },
+        { "name": "Double Espresso", "desc": "اسبرسو دبل", "price": "70.00" },
+        { "name": "American Coffee", "desc": "امريكان كوفي", "price": "75.00" },
+        { "name": "Cappuccino", "desc": "كابتشينو", "price": "100.00" },
+        { "name": "Latte", "desc": "لاتيه", "price": "100.00" },
+        { "name": "Mikato Single", "desc": "ميكاتو سنجل", "price": "75.00" },
+        { "name": "Mikato Double", "desc": "ميكاتو دبل", "price": "85.00" },
+        { "name": "cortado", "desc": "كورتادو", "price": "85.00" },
+        { "name": "Caramel Mikato", "desc": "كارميل ميكاتو", "price": "90.00" },
+        { "name": "Mocha", "desc": "موكا", "price": "110.00" },
+        { "name": "Nescafe", "desc": "نسكافيه", "price": "55.00" },
+        { "name": "Nescafe with Milk", "desc": "نسكافيه بالبن", "price": "95.00" },
+        { "name": "Hot Chocolate", "desc": "هوت شوكلت", "price": "100.00" },
+        { "name": "Hot Chocolate Marshmallow", "desc": "هوت شوكلت مارشيميلو", "price": "120.00" },
+        { "name": "Flat White", "desc": "فلات وايت", "price": "100.00" },
+        { "name": "Spanish Latte", "desc": "اسبانش لاتيه", "price": "110.00" }
       ]
     },
     {
-      "id": "tea",
-      "label": "Tea",
-      "title": "loose leaf",
+      "id": "frappe",
+      "label": "Frappe",
+      "title": "فرابيه",
       "items": [
-        {
-          "name": "jasmine green",
-          "desc": "delicate, fragrant",
-          "price": "$3.8"
-        },
-        {
-          "name": "masala chai",
-          "desc": "simmered with spices & milk",
-          "price": "$4.5"
-        },
-        {
-          "name": "chamomile citrus",
-          "desc": "caffeine free, honey note",
-          "price": "$3.8"
-        }
+        { "name": "Chocolate", "desc": "شيكولاته", "price": "100.00" },
+        { "name": "Caramel", "desc": "كراميل", "price": "100.00" },
+        { "name": "Vanilla", "desc": "فانيليا", "price": "95.00" }
       ]
     },
     {
-      "id": "bakery",
-      "label": "Bakery",
-      "title": "fresh oven",
+      "id": "smoothies",
+      "label": "smoothie",
+      "title": "سموزي",
       "items": [
-        {
-          "name": "sourdough toast",
-          "desc": "house butter, local jam",
-          "price": "$4.0"
-        },
-        {
-          "name": "morning bun",
-          "desc": "cinnamon, orange zest, sugar pearl",
-          "price": "$4.2"
-        },
-        {
-          "name": "seasonal scone",
-          "desc": "buttermilk, dried cherries",
-          "price": "$4.0"
-        }
+        { "name": "Mango", "desc": "مانجو", "price": "100.00" },
+        { "name": "Watermelon", "desc": "بطيخ", "price": "100.00" },
+        { "name": "Guava", "desc": "جوافة", "price": "90.00" },
+        { "name": "Kiwi", "desc": "كيوي", "price": "130.00" },
+        { "name": "Berries", "desc": "توت", "price": "100.00" },
+        { "name": "Peach", "desc": "خوخ", "price": "100.00" },
+        { "name": "Pineapple", "desc": "اناناس", "price": "100.00" },
+        { "name": "Watermelon Mint", "desc": "بطيخ نعناع", "price": "110.00" }
       ]
     },
     {
-      "id": "lunch",
-      "label": "Lunch",
-      "title": "midday plates",
+      "id": "ice-coffee",
+      "label": "Ice Coffee",
+      "title": "قهوة مثلجة",
       "items": [
-        {
-          "name": "kale & quinoa salad",
-          "desc": "lemon tahini, cucumber, toasted seeds",
-          "price": "$11.5"
-        },
-        {
-          "name": "roasted mushroom toast",
-          "desc": "herb ricotta, balsamic glaze",
-          "price": "$12.0"
-        },
-        {
-          "name": "lentil soup bowl",
-          "desc": "with crusty bread & olive oil",
-          "price": "$9.5"
-        }
+        { "name": "Mocha", "desc": "موكا", "price": "110.00" },
+        { "name": "Latte", "desc": "لاتيه", "price": "100.00" },
+        { "name": "Chocolate", "desc": "شوكلت", "price": "110.00" },
+        { "name": "Cappuccino", "desc": "كابتشينو", "price": "110.00" },
+        { "name": "Tea", "desc": "شاي", "price": "65.00" },
+        { "name": "Spanish Coffee", "desc": "آيس سبانيش", "price": "110.00" }
       ]
     },
     {
-      "id": "sweets",
-      "label": "Sweets",
-      "title": "simple sweets",
+      "id": "milkshake",
+      "label": "Milkshake",
+      "title": "ميلك شيك",
       "items": [
-        {
-          "name": "olive oil cake",
-          "desc": "orange & rosemary, powdered sugar",
-          "price": "$5.5"
-        },
-        {
-          "name": "dark chocolate mousse",
-          "desc": "airy, bittersweet, sea salt",
-          "price": "$6.0"
-        },
-        {
-          "name": "baked apple",
-          "desc": "walnut crumble, oat cream",
-          "price": "$6.5"
-        }
+        { "name": "Mango", "desc": "مانجو", "price": "100.00" },
+        { "name": "Berries", "desc": "توت", "price": "100.00" },
+        { "name": "Mix Berries", "desc": "میکس توت", "price": "100.00" },
+        { "name": "Caramel", "desc": "كراميل", "price": "100.00" },
+        { "name": "Strawberry", "desc": "فراولة", "price": "90.00" },
+        { "name": "Chocolate", "desc": "شوكلت", "price": "110.00" },
+        { "name": "Oreo", "desc": "اوريو", "price": "120.00" },
+        { "name": "Vanilla", "desc": "فانيليا", "price": "90.00" },
+        { "name": "Lotus", "desc": "لوتس", "price": "110.00" },
+        { "name": "Kit Kat", "desc": "کیت کات", "price": "130.00" }
       ]
     },
     {
-      "id": "signature",
-      "label": "Signatures",
-      "title": "house specials",
+      "id": "fresh-juice",
+      "label": "Fresh Juice",
+      "title": "عصائر طازجة",
       "items": [
-        {
-          "name": "matcha tonic",
-          "desc": "ceremonial matcha, tonic, lime",
-          "price": "$5.2"
-        },
-        {
-          "name": "honey cinnamon latte",
-          "desc": "raw honey, cinnamon dust",
-          "price": "$5.5"
-        },
-        {
-          "name": "golden turmeric latte",
-          "desc": "turmeric, ginger, coconut",
-          "price": "$5.2"
-        }
+        { "name": "Mango", "desc": "مانجو", "price": "100.00" },
+        { "name": "mango peach", "desc": "مانجو خوخ", "price": "110.00" },
+        { "name": "mango kiwi", "desc": "مانجو كيوي", "price": "110.00" },
+        { "name": "Strawberry", "desc": "فراولة", "price": "90.00" },
+        { "name": "Guava", "desc": "جوافة", "price": "90.00" },
+        { "name": "Orange", "desc": "برتقال", "price": "85.00" },
+        { "name": "Lemon", "desc": "ليمون", "price": "80.00" },
+        { "name": "Lemon with Mint", "desc": "ليمون نعناع", "price": "85.00" },
+        { "name": "Watermelon", "desc": "بطيخ", "price": "100.00" },
+        { "name": "Banana with Milk", "desc": "موز بالبن", "price": "100.00" },
+        { "name": "Guava with Milk", "desc": "جوافه بالبن", "price": "100.00" },
+        { "name": "green piont", "desc": "جوافه نعناع", "price": "100.00" },
+        { "name": "hibiscus crush", "desc": "هيبسكس كراش", "price": "120.00" },
+        { "name": "Kiwi", "desc": "كيوي", "price": "130.00" },
+        { "name": "Avocado", "desc": "افوكادو", "price": "150.00" },
+        { "name": "Fruit Salad", "desc": "سلطه فواكه", "price": "150.00" }
       ]
     },
     {
-      "id": "vegan",
-      "label": "Vegan",
-      "title": "plant based",
+      "id": "yogurt-drinks",
+      "label": "Yogurt Drinks",
+      "title": "مشروبات زبادي",
       "items": [
-        {
-          "name": "tofu scramble bowl",
-          "desc": "black beans, avocado, salsa verde",
-          "price": "$10.8"
-        },
-        {
-          "name": "coconut chia pudding",
-          "desc": "mango, lime, toasted coconut",
-          "price": "$7.5"
-        },
-        {
-          "name": "jackfruit tacos",
-          "desc": "slaw, cilantro, chipotle crema (vegan)",
-          "price": "$11.0"
-        }
+        { "name": "Honey", "desc": "عسل", "price": "85.00" },
+        { "name": "Mango", "desc": "مانجو", "price": "100.00" },
+        { "name": "Strawberry", "desc": "فراولة", "price": "95.00" },
+        { "name": "Banana", "desc": "موز", "price": "95.00" },
+        { "name": "Berries", "desc": "توت", "price": "95.00" },
+        { "name": "Vanilla", "desc": "فانيليا", "price": "95.00" },
+        { "name": "Kiwi", "desc": "كيوي", "price": "130.00" },
+        { "name": "Fruit", "desc": "فواكه", "price": "150.00" },
+        { "name": "Passion", "desc": "باشون", "price": "110.00" }
+      ]
+    },
+    {
+      "id": "soft-drinks",
+      "label": "Soft Drinks",
+      "title": "المشروبات الغازية",
+      "items": [
+        { "name": "Water", "desc": "مياه", "price": "15.00" },
+        { "name": "7UP", "desc": "سفن", "price": "55.00" },
+        { "name": "coca cola", "desc": "كوكاكولا", "price": "55.00" },
+        { "name": "Pepsi", "desc": "بيبسي", "price": "55.00" },
+        { "name": "pepsi deit", "desc": "بيبسي دايت", "price": "55.00" },
+        { "name": "V Seven", "desc": "ڤي سيفن", "price": "55.00" },
+        { "name": "V Cola", "desc": "ڤي كولا", "price": "55.00" },
+        { "name": "Twist", "desc": "تويست", "price": "55.00" },
+        { "name": "Fury", "desc": "فيوري", "price": "55.00" },
+        { "name": "Sting", "desc": "استنج", "price": "55.00" },
+        { "name": "Schweppes", "desc": "شويبس", "price": "55.00" },
+        { "name": "Fayrouz", "desc": "فيروز", "price": "55.00" },
+        { "name": "Birell", "desc": "بيريل", "price": "55.00" },
+        { "name": "Redbull", "desc": "ريدبول", "price": "90.00" }
+      ]
+    },
+    {
+      "id": "desserts",
+      "label": "Desserts",
+      "title": "الحلويات",
+      "items": [
+        { "name": "Molten Cake", "desc": "مولتن كيك", "price": "100.00" },
+        { "name": "molten cake Birthday", "desc": "مولتن كيك عيد ميلاد", "price": "150.00" },
+        { "name": "Cheesecake", "desc": "تشيز كيك", "price": "85.00" },
+        { "name": "Chocolate Cake", "desc": "شوكلت كيك", "price": "90.00" },
+        { "name": "Plain Waffle", "desc": "وافل ميكس", "price": "200.00" },
+        { "name": "Chocolate Waffle", "desc": "وافل شيكولاته", "price": "120.00" },
+        { "name": "Lotus Waffle", "desc": "وافل لوتس", "price": "120.00" },
+        { "name": "Fruit Waffle", "desc": "وافل فواكه", "price": "150.00" },
+        { "name": "Oreo Waffle", "desc": "وافل اوريو", "price": "150.00" }
       ]
     }
   ]
