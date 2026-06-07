@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="auto">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
@@ -31,17 +31,45 @@
         .menu-card { background: #ffffff; border-radius: 20px; padding: 1.2rem 1.4rem; border: 1px solid #ece8df; transition: 0.18s linear; }
         .menu-card:hover { border-color: #cfe0c2; background: #fffef9; }
         .item-name { font-size: 1.4rem; font-weight: 700; color: #345e25; }
-        .item-desc { font-size: 1.2rem; color: #6e6a5e; margin: 0.6rem 0 0.4rem; }
+        .item-desc { font-size: 0.85rem; color: #6e6a5e; margin: 0.6rem 0 0.4rem; line-height: 1.5; }
         .price { font-size: 1.2rem; font-weight: 600; color: #578b3b; margin-top: 0.7rem; border-top: 1px solid #f0efea; padding-top: 0.6rem; }
         .section-title { font-size: 1.7rem; font-weight: 600; margin-bottom: 1.3rem; color: #417c2c; border-left: 4px solid #bdd3ac; padding-left: 0.8rem; }
         .footer-note { text-align: center; margin-top: 3.5rem; font-size: 0.75rem; color: #acb89d; border-top: 1px solid #ece4d8; padding-top: 1.8rem; }
-        .refresh-status { position: fixed; bottom: 20px; right: 20px; background: #3f6830; color: white; padding: 6px 12px; border-radius: 20px; font-size: 0.7rem; font-family: monospace; opacity: 0.7; pointer-events: none; }
-        @media (max-width: 680px) { .cafe-container { padding: 1rem; } .cafe-name { font-size: 1.5rem; } .cat-btn { padding: 0.4rem 1.2rem; font-size: 0.85rem; } .logo-img { width: 78px; height: 78px; } }
+        
+        /* Manual Refresh Button */
+        .manual-refresh-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #3f6830;
+            color: white;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 40px;
+            cursor: pointer;
+            font-family: 'Bona Nova SC', serif;
+            font-size: 0.8rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            z-index: 100;
+            transition: all 0.2s;
+        }
+        .manual-refresh-btn:hover {
+            background: #578b3b;
+            transform: scale(1.05);
+        }
         
         /* RTL Support for Arabic */
         body.rtl { direction: rtl; text-align: right; }
         body.rtl .section-title { border-left: none; border-right: 4px solid #bdd3ac; padding-left: 0; padding-right: 0.8rem; }
         body.rtl .price { text-align: right; }
+        
+        @media (max-width: 680px) { 
+            .cafe-container { padding: 1rem; } 
+            .cafe-name { font-size: 1.5rem; } 
+            .cat-btn { padding: 0.4rem 1.2rem; font-size: 0.85rem; } 
+            .logo-img { width: 78px; height: 78px; }
+            .manual-refresh-btn { padding: 6px 12px; font-size: 0.7rem; bottom: 10px; right: 10px; }
+        }
     </style>
 </head>
 <body>
@@ -64,41 +92,78 @@
     <div class="sections-area" id="sectionsArea"></div>
     <div class="footer-note"><span>from our small kitchen — served with care</span></div>
 </div>
-<div class="refresh-status" id="refreshStatus">Live menu • auto-sync</div>
+
+<!-- Manual Refresh Button (visible to users) -->
+<button class="manual-refresh-btn" onclick="loadMenuFromJSON()">
+    🔄 Refresh Menu
+</button>
 
 <script>
-    let currentMenuData = null, allSections = [], autoRefreshInterval = null;
+    let currentMenuData = null, allSections = [];
+    let currentDataHash = null; // Track if data has changed
     
-    // Detect Arabic text and enable RTL
-    function detectAndEnableRTL(text) {
-        const arabicPattern = /[\u0600-\u06FF]/;
-        if (arabicPattern.test(text)) {
-            document.body.classList.add('rtl');
-            return true;
-        }
-        return false;
+    // Generate a simple hash of the data to detect changes
+    function generateHash(data) {
+        return JSON.stringify(data);
     }
     
-    async function loadMenuFromJSON() {
+    // Detect Arabic text and enable RTL
+    function detectAndEnableRTL() {
+        if (!currentMenuData) return;
+        const arabicPattern = /[\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\uFB50-\uFDFF\uFE70-\uFEFF]/;
+        let hasArabic = false;
+        
+        for (let cat of currentMenuData) {
+            if (arabicPattern.test(cat.label) || arabicPattern.test(cat.title)) {
+                hasArabic = true;
+                break;
+            }
+            for (let item of cat.items) {
+                if (arabicPattern.test(item.name) || arabicPattern.test(item.desc)) {
+                    hasArabic = true;
+                    break;
+                }
+            }
+        }
+        
+        if (hasArabic) {
+            document.body.classList.add('rtl');
+            document.documentElement.lang = 'ar';
+        } else {
+            document.body.classList.remove('rtl');
+            document.documentElement.lang = 'en';
+        }
+    }
+    
+    async function loadMenuFromJSON(showNotification = false) {
         try {
             const response = await fetch(`data.json?t=${Date.now()}`);
-            const data = await response.json();
-            currentMenuData = data.menuCatalog;
-            renderFullMenu();
+            const text = await response.text();
+            const data = JSON.parse(text);
+            const newHash = generateHash(data.menuCatalog);
             
-            // Check for Arabic in first item
-            if (currentMenuData[0]?.items[0]?.name) {
-                detectAndEnableRTL(currentMenuData[0].items[0].name);
+            // Check if data has actually changed
+            if (currentDataHash !== newHash) {
+                currentMenuData = data.menuCatalog;
+                currentDataHash = newHash;
+                renderFullMenu();
+                detectAndEnableRTL();
+                
+                // Optional: Show a subtle visual feedback
+                if (showNotification) {
+                    const btn = document.querySelector('.manual-refresh-btn');
+                    const originalText = btn.textContent;
+                    btn.textContent = '✓ Updated!';
+                    btn.style.background = '#4caf50';
+                    setTimeout(() => {
+                        btn.textContent = originalText;
+                        btn.style.background = '#3f6830';
+                    }, 1500);
+                }
             }
-            
-            document.getElementById('refreshStatus').style.opacity = '1';
-            document.getElementById('refreshStatus').textContent = '✓ Menu updated';
-            setTimeout(() => { 
-                document.getElementById('refreshStatus').style.opacity = '0.7'; 
-                document.getElementById('refreshStatus').textContent = 'Live menu • auto-sync'; 
-            }, 2000);
             return true;
         } catch (error) {
+            console.error('Error:', error);
             document.getElementById('sectionsArea').innerHTML = '<div style="text-align:center;padding:2rem;">⚠️ Unable to load menu. Please ensure data.json exists.</div>';
             return false;
         }
@@ -149,13 +214,41 @@
         if (allSections.length) { allSections[0].classList.add('active-section'); }
     }
     
-    function escapeHtml(str) { if (!str) return ''; return str.replace(/[&<>]/g, function(m) { if (m === '&') return '&amp;'; if (m === '<') return '&lt;'; if (m === '>') return '&gt;'; return m; }); }
-    
-    function startAutoRefresh() { if (autoRefreshInterval) clearInterval(autoRefreshInterval); autoRefreshInterval = setInterval(() => { loadMenuFromJSON(); }, 5000); }
+    function escapeHtml(str) { 
+        if (!str) return ''; 
+        return str.replace(/[&<>]/g, function(m) { 
+            if (m === '&') return '&amp;'; 
+            if (m === '<') return '&lt;'; 
+            if (m === '>') return '&gt;'; 
+            return m; 
+        }); 
+    }
     
     document.getElementById('mainLogo').onerror = function() { this.style.backgroundColor = "#e0edcf"; };
+    
+    // Load once on page load
     loadMenuFromJSON();
-    startAutoRefresh();
+    
+    // Optional: Check for updates every 10 seconds but only refresh if data changed
+    setInterval(async () => {
+        try {
+            const response = await fetch(`data.json?t=${Date.now()}`);
+            const text = await response.text();
+            const data = JSON.parse(text);
+            const newHash = generateHash(data.menuCatalog);
+            
+            // Only refresh if data actually changed
+            if (currentDataHash !== newHash) {
+                console.log('Data changed! Refreshing menu...');
+                currentMenuData = data.menuCatalog;
+                currentDataHash = newHash;
+                renderFullMenu();
+                detectAndEnableRTL();
+            }
+        } catch (error) {
+            console.error('Background check error:', error);
+        }
+    }, 5000); // Check every 5 seconds, but only update if changed
 </script>
 </body>
 </html>
