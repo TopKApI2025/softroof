@@ -5,9 +5,21 @@
       "label": "Morning",
       "title": "morning bites",
       "items": [
-        { "name": "soft scrambled eggs", "desc": "organic eggs, chives, sourdough toast", "price": "$8.5" },
-        { "name": "granola & yogurt", "desc": "honey, seasonal berries, toasted oats", "price": "$7.2" },
-        { "name": "avocado toast", "desc": "mashed avocado, lemon, radish, sea salt", "price": "$9.0" }
+        {
+          "name": "soft scrambled eggs",
+          "desc": "organic eggs, chives, sourdough toast",
+          "price": "$89"
+        },
+        {
+          "name": "granola & yogurt",
+          "desc": "honey, seasonal berries, toasted oats",
+          "price": "$7.2"
+        },
+        {
+          "name": "avocado toast",
+          "desc": "mashed avocado, lemon, radish, sea salt",
+          "price": "$9.0"
+        }
       ]
     },
     {
@@ -15,10 +27,26 @@
       "label": "Coffee",
       "title": "daily brew",
       "items": [
-        { "name": "house drip", "desc": "single origin, medium-dark roast", "price": "$3.5" },
-        { "name": "oat latte", "desc": "double espresso, steamed oat milk", "price": "$4.8" },
-        { "name": "cortado", "desc": "balanced, smooth, small & strong", "price": "$4.0" },
-        { "name": "cold filter", "desc": "12-hour steep, light & floral", "price": "$4.5" }
+        {
+          "name": "house drip",
+          "desc": "single origin, medium-dark roast",
+          "price": "$3.5"
+        },
+        {
+          "name": "oat latte",
+          "desc": "double espresso, steamed oat milk",
+          "price": "$4.8"
+        },
+        {
+          "name": "cortado",
+          "desc": "balanced, smooth, small & strong",
+          "price": "$4.0"
+        },
+        {
+          "name": "cold filter",
+          "desc": "12-hour steep, light & floral",
+          "price": "$4.5"
+        }
       ]
     },
     {
@@ -26,9 +54,21 @@
       "label": "Tea",
       "title": "loose leaf",
       "items": [
-        { "name": "jasmine green", "desc": "delicate, fragrant", "price": "$3.8" },
-        { "name": "masala chai", "desc": "simmered with spices & milk", "price": "$4.5" },
-        { "name": "chamomile citrus", "desc": "caffeine free, honey note", "price": "$3.8" }
+        {
+          "name": "jasmine green",
+          "desc": "delicate, fragrant",
+          "price": "$3.8"
+        },
+        {
+          "name": "masala chai",
+          "desc": "simmered with spices & milk",
+          "price": "$4.5"
+        },
+        {
+          "name": "chamomile citrus",
+          "desc": "caffeine free, honey note",
+          "price": "$3.8"
+        }
       ]
     },
     {
@@ -36,9 +76,21 @@
       "label": "Bakery",
       "title": "fresh oven",
       "items": [
-        { "name": "sourdough toast", "desc": "house butter, local jam", "price": "$4.0" },
-        { "name": "morning bun", "desc": "cinnamon, orange zest, sugar pearl", "price": "$4.2" },
-        { "name": "seasonal scone", "desc": "buttermilk, dried cherries", "price": "$4.0" }
+        {
+          "name": "sourdough toast",
+          "desc": "house butter, local jam",
+          "price": "$4.0"
+        },
+        {
+          "name": "morning bun",
+          "desc": "cinnamon, orange zest, sugar pearl",
+          "price": "$4.2"
+        },
+        {
+          "name": "seasonal scone",
+          "desc": "buttermilk, dried cherries",
+          "price": "$4.0"
+        }
       ]
     },
     {
@@ -46,9 +98,21 @@
       "label": "Lunch",
       "title": "midday plates",
       "items": [
-        { "name": "kale & quinoa salad", "desc": "lemon tahini, cucumber, toasted seeds", "price": "$11.5" },
-        { "name": "roasted mushroom toast", "desc": "herb ricotta, balsamic glaze", "price": "$12.0" },
-        { "name": "lentil soup bowl", "desc": "with crusty bread & olive oil", "price": "$9.5" }
+        {
+          "name": "kale & quinoa salad",
+          "desc": "lemon tahini, cucumber, toasted seeds",
+          "price": "$11.5"
+        },
+        {
+          "name": "roasted mushroom toast",
+          "desc": "herb ricotta, balsamic glaze",
+          "price": "$12.0"
+        },
+        {
+          "name": "lentil soup bowl",
+          "desc": "with crusty bread & olive oil",
+          "price": "$9.5"
+        }
       ]
     },
     {
@@ -56,9 +120,21 @@
       "label": "Sweets",
       "title": "simple sweets",
       "items": [
-        { "name": "olive oil cake", "desc": "orange & rosemary, powdered sugar", "price": "$5.5" },
-        { "name": "dark chocolate mousse", "desc": "airy, bittersweet, sea salt", "price": "$6.0" },
-        { "name": "baked apple", "desc": "walnut crumble, oat cream", "price": "$6.5" }
+        {
+          "name": "olive oil cake",
+          "desc": "orange & rosemary, powdered sugar",
+          "price": "$5.5"
+        },
+        {
+          "name": "dark chocolate mousse",
+          "desc": "airy, bittersweet, sea salt",
+          "price": "$6.0"
+        },
+        {
+          "name": "baked apple",
+          "desc": "walnut crumble, oat cream",
+          "price": "$6.5"
+        }
       ]
     },
     {
@@ -66,9 +142,21 @@
       "label": "Signatures",
       "title": "house specials",
       "items": [
-        { "name": "matcha tonic", "desc": "ceremonial matcha, tonic, lime", "price": "$5.2" },
-        { "name": "honey cinnamon latte", "desc": "raw honey, cinnamon dust", "price": "$5.5" },
-        { "name": "golden turmeric latte", "desc": "turmeric, ginger, coconut", "price": "$5.2" }
+        {
+          "name": "matcha tonic",
+          "desc": "ceremonial matcha, tonic, lime",
+          "price": "$5.2"
+        },
+        {
+          "name": "honey cinnamon latte",
+          "desc": "raw honey, cinnamon dust",
+          "price": "$5.5"
+        },
+        {
+          "name": "golden turmeric latte",
+          "desc": "turmeric, ginger, coconut",
+          "price": "$5.2"
+        }
       ]
     },
     {
@@ -76,9 +164,21 @@
       "label": "Vegan",
       "title": "plant based",
       "items": [
-        { "name": "tofu scramble bowl", "desc": "black beans, avocado, salsa verde", "price": "$10.8" },
-        { "name": "coconut chia pudding", "desc": "mango, lime, toasted coconut", "price": "$7.5" },
-        { "name": "jackfruit tacos", "desc": "slaw, cilantro, chipotle crema (vegan)", "price": "$11.0" }
+        {
+          "name": "tofu scramble bowl",
+          "desc": "black beans, avocado, salsa verde",
+          "price": "$10.8"
+        },
+        {
+          "name": "coconut chia pudding",
+          "desc": "mango, lime, toasted coconut",
+          "price": "$7.5"
+        },
+        {
+          "name": "jackfruit tacos",
+          "desc": "slaw, cilantro, chipotle crema (vegan)",
+          "price": "$11.0"
+        }
       ]
     }
   ]
