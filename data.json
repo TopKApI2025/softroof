@@ -19,6 +19,11 @@
           "name": "avocado toast",
           "desc": "mashed avocado, lemon, radish, sea salt",
           "price": "$9.0"
+        },
+        {
+          "name": "New Item",
+          "desc": "Description here",
+          "price": "$0.00"
         }
       ]
     },
