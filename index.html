@@ -35,15 +35,41 @@
         .price { font-size: 1.2rem; font-weight: 600; color: #578b3b; margin-top: 0.7rem; border-top: 1px solid #f0efea; padding-top: 0.6rem; }
         .section-title { font-size: 1.7rem; font-weight: 600; margin-bottom: 1.3rem; color: #417c2c; border-left: 4px solid #bdd3ac; padding-left: 0.8rem; }
         .footer-note { text-align: center; margin-top: 3.5rem; font-size: 0.75rem; color: #acb89d; border-top: 1px solid #ece4d8; padding-top: 1.8rem; }
-        .refresh-status { position: fixed; bottom: 20px; right: 20px; background: #3f6830; color: white; padding: 6px 12px; border-radius: 20px; font-size: 0.7rem; font-family: monospace; opacity: 0.7; pointer-events: none; }
+        
+        /* Manual Refresh Button */
+        .manual-refresh-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #3f6830;
+            color: white;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 40px;
+            cursor: pointer;
+            font-family: 'Bona Nova SC', serif;
+            font-size: 0.8rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            z-index: 100;
+            transition: all 0.2s;
+        }
+        .manual-refresh-btn:hover {
+            background: #578b3b;
+            transform: scale(1.05);
+        }
         
         /* RTL Support for Arabic */
         body.rtl { direction: rtl; text-align: right; }
         body.rtl .section-title { border-left: none; border-right: 4px solid #bdd3ac; padding-left: 0; padding-right: 0.8rem; }
         body.rtl .price { text-align: right; }
-        body.rtl .social-links { flex-direction: row-reverse; }
         
-        @media (max-width: 680px) { .cafe-container { padding: 1rem; } .cafe-name { font-size: 1.5rem; } .cat-btn { padding: 0.4rem 1.2rem; font-size: 0.85rem; } .logo-img { width: 78px; height: 78px; } }
+        @media (max-width: 680px) { 
+            .cafe-container { padding: 1rem; } 
+            .cafe-name { font-size: 1.5rem; } 
+            .cat-btn { padding: 0.4rem 1.2rem; font-size: 0.85rem; } 
+            .logo-img { width: 78px; height: 78px; }
+            .manual-refresh-btn { padding: 6px 12px; font-size: 0.7rem; bottom: 10px; right: 10px; }
+        }
     </style>
 </head>
 <body>
@@ -66,10 +92,20 @@
     <div class="sections-area" id="sectionsArea"></div>
     <div class="footer-note"><span>from our small kitchen — served with care</span></div>
 </div>
-<div class="refresh-status" id="refreshStatus">Live menu • auto-sync</div>
+
+<!-- Manual Refresh Button (visible to users) -->
+<button class="manual-refresh-btn" onclick="loadMenuFromJSON()">
+    🔄 Refresh Menu
+</button>
 
 <script>
-    let currentMenuData = null, allSections = [], autoRefreshInterval = null;
+    let currentMenuData = null, allSections = [];
+    let currentDataHash = null; // Track if data has changed
+    
+    // Generate a simple hash of the data to detect changes
+    function generateHash(data) {
+        return JSON.stringify(data);
+    }
     
     // Detect Arabic text and enable RTL
     function detectAndEnableRTL() {
@@ -99,21 +135,32 @@
         }
     }
     
-    async function loadMenuFromJSON() {
+    async function loadMenuFromJSON(showNotification = false) {
         try {
             const response = await fetch(`data.json?t=${Date.now()}`);
             const text = await response.text();
             const data = JSON.parse(text);
-            currentMenuData = data.menuCatalog;
-            renderFullMenu();
-            detectAndEnableRTL();
+            const newHash = generateHash(data.menuCatalog);
             
-            document.getElementById('refreshStatus').style.opacity = '1';
-            document.getElementById('refreshStatus').textContent = '✓ Menu updated';
-            setTimeout(() => { 
-                document.getElementById('refreshStatus').style.opacity = '0.7'; 
-                document.getElementById('refreshStatus').textContent = 'Live menu • auto-sync'; 
-            }, 2000);
+            // Check if data has actually changed
+            if (currentDataHash !== newHash) {
+                currentMenuData = data.menuCatalog;
+                currentDataHash = newHash;
+                renderFullMenu();
+                detectAndEnableRTL();
+                
+                // Optional: Show a subtle visual feedback
+                if (showNotification) {
+                    const btn = document.querySelector('.manual-refresh-btn');
+                    const originalText = btn.textContent;
+                    btn.textContent = '✓ Updated!';
+                    btn.style.background = '#4caf50';
+                    setTimeout(() => {
+                        btn.textContent = originalText;
+                        btn.style.background = '#3f6830';
+                    }, 1500);
+                }
+            }
             return true;
         } catch (error) {
             console.error('Error:', error);
@@ -177,11 +224,31 @@
         }); 
     }
     
-    function startAutoRefresh() { if (autoRefreshInterval) clearInterval(autoRefreshInterval); autoRefreshInterval = setInterval(() => { loadMenuFromJSON(); }, 5000); }
-    
     document.getElementById('mainLogo').onerror = function() { this.style.backgroundColor = "#e0edcf"; };
+    
+    // Load once on page load
     loadMenuFromJSON();
-    startAutoRefresh();
+    
+    // Optional: Check for updates every 10 seconds but only refresh if data changed
+    setInterval(async () => {
+        try {
+            const response = await fetch(`data.json?t=${Date.now()}`);
+            const text = await response.text();
+            const data = JSON.parse(text);
+            const newHash = generateHash(data.menuCatalog);
+            
+            // Only refresh if data actually changed
+            if (currentDataHash !== newHash) {
+                console.log('Data changed! Refreshing menu...');
+                currentMenuData = data.menuCatalog;
+                currentDataHash = newHash;
+                renderFullMenu();
+                detectAndEnableRTL();
+            }
+        } catch (error) {
+            console.error('Background check error:', error);
+        }
+    }, 5000); // Check every 5 seconds, but only update if changed
 </script>
 </body>
 </html>
