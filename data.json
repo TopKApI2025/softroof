@@ -21,9 +21,9 @@
           "price": "$9.0"
         },
         {
-          "name": "New Item",
-          "desc": "Description here",
-          "price": "$0.00"
+          "name": "منتج جديد",
+          "desc": "وصف المنتج",
+          "price": "43"
         }
       ]
     },
