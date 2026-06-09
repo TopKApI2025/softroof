@@ -447,27 +447,38 @@
     function generateHash(data) { return JSON.stringify(data); }
     function escapeHtml(str) { if (!str) return ''; return str.replace(/[&<>]/g, m => m === '&' ? '&amp;' : m === '<' ? '&lt;' : '&gt;'); }
     
-    // FIXED: Get category display name with full Arabic/English support
+    // ---- FIXED bilingual helpers: read from enhanced data.json fields ----
+    // Category display: supports label_ar / label_en with fallbacks
     function getCategoryDisplayName(category) {
         if (currentLanguage === 'en') {
             return category.label_en || category.label || category.id || 'Category';
         } else {
-            // Arabic - use label_ar first, fallback to label_en or id
-            return category.label_ar || category.label_en || category.label || category.id || 'قسم';
+            // Arabic
+            return category.label_ar || category.label || category.id || 'قسم';
         }
     }
     
-    // FIXED: Get item name with proper Arabic/English fallback
+    // Item name: correct priority name_ar / name_en based on language
     function getItemName(item) {
         if (currentLanguage === 'en') {
-            // English: prefer name_en, fallback to name_ar, then name, then default
-            return item.name_en || item.name_ar || item.name || 'Item';
+            // English priority: name_en -> fallback name -> name_ar
+            return item.name_en || item.name || item.name_ar || 'Item';
         } else {
-            // Arabic: prefer name_ar, fallback to name_en, then name, then default Arabic text
-            return item.name_ar || item.name_en || item.name || 'عنصر';
+            // Arabic priority: name_ar -> fallback name -> name_en
+            return item.name_ar || item.name || item.name_en || 'عنصر';
         }
     }
     
+    // ----- Extract category title (big header) with bilingual support -----
+    function getCategoryTitle(category) {
+        if (currentLanguage === 'en') {
+            return category.title_en || category.title || category.label || 'Menu';
+        } else {
+            return category.title_ar || category.title || category.label || 'قائمة';
+        }
+    }
+    
+    // Apply RTL based on language selection
     function applyRTLBasedOnLanguage() {
         if (currentLanguage === 'ar') {
             document.body.classList.add('rtl');
@@ -525,7 +536,6 @@
         }
     }
     
-    // Scroll animation on first load
     function triggerScrollHintAnimation() {
         if (scrollHintAnimationShown) return;
         const scrollDiv = document.getElementById('scrollMenuContainer');
@@ -569,7 +579,7 @@
                 if (categoryButtonsRef[idx]) categoryButtonsRef[idx].textContent = getCategoryDisplayName(cat);
             });
         } else { rebuildNavButtons(); }
-        // rebuild sections to reflect new item names
+        // recreate full sections to reflect bilingual titles & item names
         createMenuSectionsFromData();
         applyRTLBasedOnLanguage();
         const toggleSpan = document.getElementById('langToggleText');
@@ -588,7 +598,7 @@
         }
     }
     
-    // Create cards with LEFT side: item name, RIGHT side: price
+    // Create cards with item name (bilingual) on left, price on right
     function createMenuSectionsFromData() {
         const sectionsArea = document.getElementById('sectionsArea');
         if (!sectionsArea || !currentMenuData) return;
@@ -600,7 +610,8 @@
             sectionDiv.dataset.sectionId = category.id;
             const titleEl = document.createElement('h3');
             titleEl.className = 'section-title';
-            titleEl.textContent = getCategoryDisplayName(category);
+            // use bilingual title
+            titleEl.textContent = getCategoryTitle(category);
             sectionDiv.appendChild(titleEl);
             
             if (category.items && category.items.length) {
@@ -609,6 +620,7 @@
                     card.className = 'menu-card';
                     const itemNameSpan = document.createElement('div');
                     itemNameSpan.className = 'item-name';
+                    // CRITICAL: use bilingual getItemName
                     itemNameSpan.textContent = getItemName(item);
                     const priceSpan = document.createElement('div');
                     priceSpan.className = 'price';
@@ -632,15 +644,20 @@
         if (!scrollHintAnimationShown) setTimeout(() => triggerScrollHintAnimation(), 400);
     }
     
+    // load menu data from data.json and apply mandatory bilingual fields
     async function loadMenuFromJSON(showNotification = false) {
         try {
             const response = await fetch(`data.json?t=${Date.now()}`);
             if (!response.ok) throw new Error(`HTTP ${response.status}`);
             const text = await response.text();
             const fullData = JSON.parse(text);
-            const newCatalog = fullData.menuCatalog;
+            let newCatalog = fullData.menuCatalog;
+            // Ensure each category & item gets fallback translations to avoid missing fields
+            // However we rely on actual data.json fields. For maximum compatibility, if some fields are missing we use originals
+            // but we normalize: for categories without label_ar/label_en but have label, we keep as is.
+            // The getter functions handle missing gracefully.
             const newHash = generateHash(newCatalog);
-            if (currentDataHash !== newHash) {
+            if (currentDataHash !== newHash || !currentMenuData) {
                 currentMenuData = newCatalog;
                 currentDataHash = newHash;
                 createMenuSectionsFromData();
