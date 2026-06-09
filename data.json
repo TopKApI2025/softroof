@@ -462,12 +462,12 @@
         {
           "name": "Banana with Milk",
           "desc": "موز بالبن",
-          "price": "100.00"
+          "price": "110.00"
         },
         {
           "name": "Guava with Milk",
           "desc": "جوافه بالبن",
-          "price": "100.00"
+          "price": "110.00"
         },
         {
           "name": "green piont",
@@ -504,7 +504,7 @@
         {
           "name": "Honey",
           "desc": "عسل",
-          "price": "85.00"
+          "price": "95.00"
         },
         {
           "name": "Mango",
