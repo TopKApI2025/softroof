@@ -118,23 +118,26 @@
         }
         .social-icon:hover { color: #ffffff; background: #3f6830cc; transform: translateY(-2px); border-color: #e9f5dc; }
         
-        /* ========== IMPROVED SCROLL MENU ========== */
-        .scroll-menu {
+        /* ========== ENHANCED SCROLL MENU ========== */
+        .scroll-menu-wrapper {
+            position: relative;
             margin: 2rem 0 1.2rem;
+        }
+        .scroll-menu {
             overflow-x: auto;
             overflow-y: hidden;
             white-space: nowrap;
             scrollbar-width: thin;
             padding-bottom: 0.8rem;
-            position: relative;
             cursor: grab;
             scroll-behavior: smooth;
             -webkit-overflow-scrolling: touch;
+            transition: scroll-left 0.1s;
         }
         .scroll-menu:active {
             cursor: grabbing;
         }
-        /* Custom scrollbar styling (Webkit) */
+        /* Custom scrollbar styling */
         .scroll-menu::-webkit-scrollbar {
             height: 6px;
         }
@@ -156,29 +159,26 @@
             padding: 0.2rem 0.1rem;
         }
         
-        /* visual hint: gradient fading on edges to indicate scrollability */
+        /* edge fade hints (visual cue for scrollable area) */
         .scroll-hint-left, .scroll-hint-right {
             position: absolute;
             top: 0;
             bottom: 0;
-            width: 40px;
+            width: 45px;
             pointer-events: none;
             z-index: 3;
-            transition: opacity 0.2s;
+            transition: opacity 0.25s ease;
         }
         .scroll-hint-left {
             left: 0;
-            background: linear-gradient(to right, rgba(254,250,245,0.9), transparent);
+            background: linear-gradient(to right, rgba(254,250,245,0.95), transparent);
         }
         .scroll-hint-right {
             right: 0;
-            background: linear-gradient(to left, rgba(254,250,245,0.9), transparent);
-        }
-        /* add subtle shadow under scroll menu to separate from content */
-        .scroll-menu-wrapper {
-            position: relative;
+            background: linear-gradient(to left, rgba(254,250,245,0.95), transparent);
         }
         
+        /* button styles */
         .cat-btn {
             font-family: 'Bona Nova SC', serif;
             background: #fffaf4;
@@ -204,47 +204,72 @@
             transform: translateY(-1px);
         }
         
-        /* highlight animation for scroll menu on first load */
-        @keyframes gentlePulse {
-            0% { box-shadow: 0 0 0 0 rgba(63,104,48,0.4); border-color: #c7ddb5; }
-            50% { box-shadow: 0 0 0 6px rgba(63,104,48,0.2); border-color: #8fb073; background: #fafff5; }
-            100% { box-shadow: 0 0 0 0 rgba(63,104,48,0); border-color: #e5ecd9; }
+        /* --- SCROLL HINT ANIMATION (wiggle + pulse) --- */
+        @keyframes gentleScrollHint {
+            0% { transform: translateX(0); opacity: 0.7; }
+            25% { transform: translateX(6px); opacity: 1; }
+            50% { transform: translateX(-4px); opacity: 1; }
+            75% { transform: translateX(6px); opacity: 1; }
+            100% { transform: translateX(0); opacity: 0.7; }
         }
-        .highlight-scroll {
-            animation: gentlePulse 1.2s ease-out 2;
-            border-radius: 60px;
+        @keyframes fadePulse {
+            0% { box-shadow: 0 0 0 0 rgba(63,104,48,0.4); background: #f9fff5; }
+            50% { box-shadow: 0 0 0 5px rgba(63,104,48,0.2); background: #f3fceb; }
+            100% { box-shadow: 0 0 0 0 rgba(63,104,48,0); background: #fffaf4; }
         }
         
-        /* small tooltip to indicate scroll */
-        .scroll-tip {
-            display: inline-block;
-            background: #3f6830e0;
-            backdrop-filter: blur(4px);
-            color: white;
-            font-size: 0.7rem;
-            padding: 4px 12px;
-            border-radius: 40px;
-            margin-right: 12px;
-            white-space: nowrap;
-            animation: fadeInOut 3s forwards;
+        .scroll-hint-highlight {
+            animation: gentleScrollHint 1.2s ease-in-out 2;
+        }
+        
+        /* floating arrow indicator */
+        .scroll-arrow-tip {
             position: absolute;
             right: 20px;
-            top: -30px;
-            pointer-events: none;
-            z-index: 5;
-            font-weight: normal;
+            top: -32px;
+            background: #3f6830e6;
+            backdrop-filter: blur(6px);
+            color: white;
+            font-size: 0.75rem;
+            padding: 6px 14px;
+            border-radius: 40px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            white-space: nowrap;
+            z-index: 20;
+            font-weight: 500;
             font-family: monospace;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            pointer-events: none;
+            animation: floatFadeOut 3.2s forwards;
         }
-        @keyframes fadeInOut {
+        .scroll-arrow-tip i {
+            font-size: 0.9rem;
+            animation: smallBounce 0.6s infinite alternate;
+        }
+        @keyframes smallBounce {
+            from { transform: translateX(0); }
+            to { transform: translateX(5px); }
+        }
+        @keyframes floatFadeOut {
             0% { opacity: 0; transform: translateY(8px); }
-            15% { opacity: 1; transform: translateY(0px); }
-            85% { opacity: 1; transform: translateY(0px); }
-            100% { opacity: 0; transform: translateY(-8px); visibility: hidden; }
+            15% { opacity: 1; transform: translateY(0); }
+            80% { opacity: 1; transform: translateY(0); }
+            100% { opacity: 0; transform: translateY(-12px); visibility: hidden; display: none; }
         }
-        /* RTL adjust for tip */
-        body.rtl .scroll-tip {
+        
+        body.rtl .scroll-arrow-tip {
             right: auto;
             left: 20px;
+        }
+        body.rtl .scroll-arrow-tip i {
+            animation: smallBounceRTL 0.6s infinite alternate;
+        }
+        @keyframes smallBounceRTL {
+            from { transform: translateX(0); }
+            to { transform: translateX(-5px); }
         }
         
         .sections-area { margin-top: 1.8rem; min-height: 55vh; }
@@ -282,8 +307,9 @@
         body.rtl .section-title { border-left: none; border-right: 4px solid #bdd3ac; padding-left: 0; padding-right: 0.8rem; }
         body.rtl .price { text-align: right; }
         body.rtl .lang-switch-wrapper { justify-content: flex-start; }
+        body.rtl .scroll-hint-left { background: linear-gradient(to left, rgba(254,250,245,0.95), transparent); left: auto; right: 0; }
+        body.rtl .scroll-hint-right { background: linear-gradient(to right, rgba(254,250,245,0.95), transparent); right: auto; left: 0; }
         
-        /* responsive */
         @media (max-width: 680px) { 
             .header-content { padding: 0.8rem 0.8rem 0.5rem; }
             .cafe-container { padding: 0 1rem; }
@@ -294,11 +320,7 @@
             .lang-toggle { padding: 0.4rem 1rem; font-size: 0.75rem; }
             .social-icon { width: 32px; height: 32px; font-size: 1rem; }
             .header-bg::before { filter: blur(6px); background-position: center 20%; }
-            .scroll-tip { font-size: 0.65rem; padding: 3px 10px; top: -28px; }
-        }
-        @media (max-width: 480px) {
-            .logo-img { width: 68px; height: 68px; }
-            .cafe-name { font-size: 1.3rem; }
+            .scroll-arrow-tip { font-size: 0.7rem; padding: 4px 10px; top: -28px; }
         }
     </style>
 </head>
@@ -331,16 +353,13 @@
 </div>
 
 <div class="cafe-container">
-    <!-- Scroll menu wrapper with visual hints -->
-    <div class="scroll-menu-wrapper" style="position: relative;">
+    <!-- Scroll menu wrapper with hints and animation -->
+    <div class="scroll-menu-wrapper" id="scrollMenuWrapper">
         <div class="scroll-menu" id="scrollMenuContainer">
             <div class="menu-buttons" id="categoryButtons"></div>
         </div>
-        <!-- edge fade hints (for desktop) -->
         <div class="scroll-hint-left" id="scrollHintLeft" style="opacity:0;"></div>
         <div class="scroll-hint-right" id="scrollHintRight" style="opacity:1;"></div>
-        <!-- small floating tip that will show on first load -->
-        <div id="scrollTip" class="scroll-tip" style="display: none;">👉 swipe / scroll 👈</div>
     </div>
     <div class="sections-area" id="sectionsArea"></div>
     <div class="footer-note"><span>from our small kitchen — served with care</span></div>
@@ -357,7 +376,7 @@
     let currentDataHash = null;
     let allSections = [];
     let categoryButtonsRef = [];
-    let scrollHighlightShown = false;   // to show highlight animation only once
+    let scrollHintAnimationShown = false;   // track animation to show only once
     
     // helpers
     function generateHash(data) { return JSON.stringify(data); }
@@ -378,11 +397,10 @@
             document.documentElement.lang = 'en';
             document.documentElement.dir = 'ltr';
         }
-        // update edge hints direction awareness after language change (recalc scroll hints)
         setTimeout(updateScrollHintsVisibility, 50);
     }
     
-    // Function to update scroll hint fades based on scroll position
+    // Update edge fade hints based on scroll position
     function updateScrollHintsVisibility() {
         const scrollDiv = document.getElementById('scrollMenuContainer');
         if (!scrollDiv) return;
@@ -391,12 +409,11 @@
         if (!leftHint || !rightHint) return;
         const scrollLeft = scrollDiv.scrollLeft;
         const maxScroll = scrollDiv.scrollWidth - scrollDiv.clientWidth;
-        // left fade visible if scrollLeft > 5px
-        leftHint.style.opacity = scrollLeft > 8 ? '1' : '0';
+        leftHint.style.opacity = scrollLeft > 6 ? '1' : '0';
         rightHint.style.opacity = (maxScroll - scrollLeft) > 8 ? '1' : '0';
     }
     
-    // Build category buttons with scroll awareness + highlight
+    // Build navigation buttons + attach scroll events
     function rebuildNavButtons() {
         const container = document.getElementById('categoryButtons');
         if (!container || !currentMenuData) return;
@@ -413,7 +430,6 @@
                 allSections.forEach(section => {
                     section.classList.toggle('active-section', section.dataset.sectionId === cat.id);
                 });
-                // optional: gently scroll button into view if needed
                 btn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
             });
             container.appendChild(btn);
@@ -423,7 +439,6 @@
         if (allSections.length && !document.querySelector('.menu-section.active-section') && allSections[0]) {
             allSections[0].classList.add('active-section');
         }
-        // Attach scroll listener for edge hints
         const scrollDiv = document.getElementById('scrollMenuContainer');
         if (scrollDiv) {
             scrollDiv.removeEventListener('scroll', updateScrollHintsVisibility);
@@ -432,27 +447,74 @@
         }
     }
     
-    // Animate scroll menu to catch user attention (only once)
-    function animateScrollMenuHighlight() {
-        if (scrollHighlightShown) return;
-        scrollHighlightShown = true;
+    // 🔥 SCROLL HINT ANIMATION: indicates that there are additional items
+    function triggerScrollHintAnimation() {
+        if (scrollHintAnimationShown) return;
+        scrollHintAnimationShown = true;
+        
         const scrollDiv = document.getElementById('scrollMenuContainer');
-        if (!scrollDiv) return;
-        // add highlight class to the container first button or wrapper
-        const firstBtn = document.querySelector('.cat-btn');
-        if (firstBtn) {
-            firstBtn.classList.add('highlight-scroll');
-            setTimeout(() => firstBtn.classList.remove('highlight-scroll'), 2600);
+        const wrapper = document.getElementById('scrollMenuWrapper');
+        if (!scrollDiv || !wrapper) return;
+        
+        // Check if scroll is actually needed (content overflows)
+        const needsScroll = scrollDiv.scrollWidth > scrollDiv.clientWidth;
+        if (!needsScroll) return;
+        
+        // 1. Add wiggle animation to the right edge hint (or both depending on direction)
+        const rightHint = document.getElementById('scrollHintRight');
+        const leftHint = document.getElementById('scrollHintLeft');
+        if (rightHint) {
+            rightHint.classList.add('scroll-hint-highlight');
+            setTimeout(() => rightHint.classList.remove('scroll-hint-highlight'), 1300);
         }
-        // show tooltip
-        const tip = document.getElementById('scrollTip');
-        if (tip) {
-            tip.style.display = 'block';
+        // also animate the right hint background glow
+        if (leftHint && scrollDiv.scrollWidth - scrollDiv.scrollLeft > scrollDiv.clientWidth + 20) {
+            // also animate left if content is overflow both sides? but we animate right by default
+        }
+        
+        // 2. Create floating arrow tip that says "more →"
+        const tip = document.createElement('div');
+        tip.className = 'scroll-arrow-tip';
+        const isRTL = document.body.classList.contains('rtl');
+        if (isRTL) {
+            tip.innerHTML = '<i class="fas fa-arrow-left"></i> المزيد <i class="fas fa-arrow-left"></i>';
+        } else {
+            tip.innerHTML = '<i class="fas fa-arrow-right"></i> more items <i class="fas fa-arrow-right"></i>';
+        }
+        wrapper.style.position = 'relative';
+        wrapper.appendChild(tip);
+        
+        // Remove tip after animation
+        setTimeout(() => {
+            if (tip && tip.parentNode) tip.remove();
+        }, 3200);
+        
+        // 3. Additionally do a tiny auto-scroll bounce to show movement (just 40px to the right then back)
+        const originalScroll = scrollDiv.scrollLeft;
+        const maxScrollPossible = scrollDiv.scrollWidth - scrollDiv.clientWidth;
+        if (maxScrollPossible > 15) {
+            // small bounce: scroll right a bit, then return
+            scrollDiv.style.scrollBehavior = 'smooth';
+            const targetScroll = Math.min(originalScroll + 70, maxScrollPossible);
+            scrollDiv.scrollTo({ left: targetScroll, behavior: 'smooth' });
             setTimeout(() => {
-                if (tip) tip.style.display = 'none';
-            }, 3200);
+                scrollDiv.scrollTo({ left: originalScroll, behavior: 'smooth' });
+                setTimeout(() => { scrollDiv.style.scrollBehavior = 'smooth'; }, 400);
+            }, 500);
+        } else {
+            // just a subtle pulse on button
+            const firstBtn = document.querySelector('.cat-btn');
+            if (firstBtn) {
+                firstBtn.style.animation = 'fadePulse 0.9s ease 2';
+                setTimeout(() => { if(firstBtn) firstBtn.style.animation = ''; }, 1900);
+            }
         }
-        // also add small arrow pulse if possible
+        
+        // also highlight the scrollbar track briefly
+        const scrollTrack = scrollDiv;
+        scrollTrack.style.transition = 'box-shadow 0.2s';
+        scrollTrack.style.boxShadow = '0 0 0 2px rgba(63,104,48,0.3) inset';
+        setTimeout(() => { if(scrollTrack) scrollTrack.style.boxShadow = ''; }, 800);
     }
     
     function refreshUILanguage() {
@@ -504,10 +566,10 @@
         if (allSections.length) allSections[0].classList.add('active-section');
         rebuildNavButtons();
         applyRTLBasedOnLanguage();
-        // after fresh creation, trigger scroll highlight on first load once
-        if (!scrollHighlightShown) setTimeout(() => animateScrollMenuHighlight(), 300);
-        // Also ensure scroll hint updates after images/menu loaded
-        setTimeout(updateScrollHintsVisibility, 200);
+        // after DOM ready, if scroll content overflows, trigger hint animation (once)
+        setTimeout(() => {
+            if (!scrollHintAnimationShown) triggerScrollHintAnimation();
+        }, 400);
     }
     
     async function loadMenuFromJSON(showNotification = false) {
@@ -532,8 +594,8 @@
                         setTimeout(() => { btn.textContent = origText; btn.style.background = '#3f6830'; }, 1500);
                     }
                 }
-                // re-highlight scroll on data update if needed, but avoid duplicate repetitive tooltip
-                if (!scrollHighlightShown) animateScrollMenuHighlight();
+                // trigger hint again if needed on update but only once
+                if (!scrollHintAnimationShown) setTimeout(() => triggerScrollHintAnimation(), 500);
                 return true;
             } else if (showNotification) {
                 const btn = document.querySelector('.manual-refresh-btn');
@@ -593,7 +655,6 @@
                 const newCatalog = freshData.menuCatalog;
                 const newHash = generateHash(newCatalog);
                 if (currentDataHash !== newHash) {
-                    console.log("Auto data change, refreshing");
                     currentMenuData = newCatalog;
                     currentDataHash = newHash;
                     createMenuSectionsFromData();
@@ -610,7 +671,6 @@
         }, 8000);
     }
     
-    // manual drag scroll helper
     function enableDragScroll() {
         const slider = document.getElementById('scrollMenuContainer');
         if (!slider) return;
@@ -646,11 +706,11 @@
         }
         startPeriodicDataCheck();
         enableDragScroll();
-        // additional resize and load listener to update scroll hints
         window.addEventListener('resize', () => setTimeout(updateScrollHintsVisibility, 100));
-        setTimeout(() => { updateScrollHintsVisibility(); if (!scrollHighlightShown) animateScrollMenuHighlight(); }, 500);
+        setTimeout(updateScrollHintsVisibility, 200);
+        // final attempt to show scroll animation if needed after all assets
+        setTimeout(() => { if (!scrollHintAnimationShown) triggerScrollHintAnimation(); }, 800);
     })();
 </script>
-
 </body>
 </html>
