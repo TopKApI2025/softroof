@@ -3,12 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Soft Roof Cafe | bilingual scroll menu · item | price</title>
-    <link href="https://fonts.googleapis.com/css2?family=Bona+Nova+SC:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <title>Soft Roof Cafe | قائمة طعام ثنائية اللغة</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bona+Nova+SC:ital,wght@0,400;0,700;1,400&family=Cairo:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background: #fefaf5; font-family: 'Bona Nova SC', serif; color: #2c2b26; line-height: 1.4; }
+        body { 
+            background: #fefaf5; 
+            font-family: 'Bona Nova SC', 'Cairo', serif; 
+            color: #2c2b26; 
+            line-height: 1.4; 
+        }
         
         /* --- HEADER BACKGROUND WITH BLUR --- */
         .header-bg {
@@ -82,7 +87,7 @@
             border: 1px solid rgba(220, 229, 207, 0.8);
             border-radius: 60px;
             padding: 0.5rem 1.2rem;
-            font-family: 'Bona Nova SC', serif;
+            font-family: 'Bona Nova SC', 'Cairo', serif;
             font-size: 0.85rem;
             font-weight: 600;
             color: #2c4820;
@@ -118,7 +123,7 @@
         }
         .social-icon:hover { color: #ffffff; background: #3f6830cc; transform: translateY(-2px); border-color: #e9f5dc; }
         
-        /* ========== STICKY SCROLL MENU (with animation hint) ========== */
+        /* ========== STICKY SCROLL MENU ========== */
         .sticky-menu-container {
             position: sticky;
             top: 0;
@@ -173,7 +178,7 @@
         .scroll-hint-right { right: 0; background: linear-gradient(to left, rgba(254,250,245,0.95), transparent); }
         
         .cat-btn {
-            font-family: 'Bona Nova SC', serif;
+            font-family: 'Bona Nova SC', 'Cairo', serif;
             background: #fffaf4;
             border: 1px solid #e5ecd9;
             padding: 0.65rem 1.7rem;
@@ -189,7 +194,7 @@
         .cat-btn.active { background: #3f6830; color: white; border-color: #3f6830; box-shadow: 0 4px 8px rgba(63,104,48,0.2); }
         .cat-btn:hover:not(.active) { background: #eef5e8; transform: translateY(-1px); }
         
-        /* --- item cards: LEFT = name (only), RIGHT = price only --- */
+        /* --- ITEM CARDS: LEFT = NAME, RIGHT = PRICE --- */
         .sections-wrapper {
             position: relative;
             background: radial-gradient(circle at 10% 30%, rgba(225, 235, 210, 0.4), rgba(250, 245, 235, 0.7));
@@ -202,7 +207,6 @@
         
         .sections-area { position: relative; z-index: 2; }
         
-        /* new modern card: flex row, left name, right price */
         .menu-card {
             background: rgba(255, 255, 250, 0.96);
             backdrop-filter: blur(2px);
@@ -265,7 +269,7 @@
             padding: 10px 18px;
             border-radius: 40px;
             cursor: pointer;
-            font-family: 'Bona Nova SC', serif;
+            font-family: 'Bona Nova SC', 'Cairo', serif;
             font-size: 0.8rem;
             box-shadow: 0 2px 8px rgba(0,0,0,0.2);
             z-index: 200;
@@ -309,18 +313,52 @@
             100% { opacity: 0; transform: translateY(-12px); visibility: hidden; }
         }
         
-        /* RTL adjustments */
-        body.rtl { direction: rtl; text-align: right; }
-        body.rtl .section-title { border-left: none; border-right: 5px solid #9bc07c; padding-left: 0; padding-right: 0.9rem; }
-        body.rtl .menu-card { flex-direction: row-reverse; }
-        body.rtl .item-name { text-align: right; }
-        body.rtl .price { text-align: left; }
-        body.rtl .lang-switch-wrapper { justify-content: flex-start; }
-        body.rtl .scroll-hint-left { background: linear-gradient(to left, rgba(254,250,245,0.95), transparent); left: auto; right: 0; }
-        body.rtl .scroll-hint-right { background: linear-gradient(to right, rgba(254,250,245,0.95), transparent); right: auto; left: 0; }
-        body.rtl .scroll-arrow-tip { right: auto; left: 20px; }
-        body.rtl .scroll-arrow-tip i { animation: smallBounceRTL 0.6s infinite alternate; }
-        @keyframes smallBounceRTL { from { transform: translateX(0); } to { transform: translateX(-5px); } }
+        /* ========== RTL SUPPORT FOR ARABIC ========== */
+        body.rtl { 
+            direction: rtl; 
+            text-align: right; 
+        }
+        body.rtl .section-title { 
+            border-left: none; 
+            border-right: 5px solid #9bc07c; 
+            padding-left: 0; 
+            padding-right: 0.9rem; 
+        }
+        body.rtl .menu-card { 
+            flex-direction: row-reverse; 
+        }
+        body.rtl .item-name { 
+            text-align: right; 
+            font-family: 'Cairo', 'Bona Nova SC', serif;
+        }
+        body.rtl .price { 
+            text-align: left; 
+            font-family: 'Bona Nova SC', 'Cairo', serif;
+        }
+        body.rtl .lang-switch-wrapper { 
+            justify-content: flex-start; 
+        }
+        body.rtl .scroll-hint-left { 
+            background: linear-gradient(to left, rgba(254,250,245,0.95), transparent); 
+            left: auto; 
+            right: 0; 
+        }
+        body.rtl .scroll-hint-right { 
+            background: linear-gradient(to right, rgba(254,250,245,0.95), transparent); 
+            right: auto; 
+            left: 0; 
+        }
+        body.rtl .scroll-arrow-tip { 
+            right: auto; 
+            left: 20px; 
+        }
+        body.rtl .scroll-arrow-tip i { 
+            animation: smallBounceRTL 0.6s infinite alternate; 
+        }
+        @keyframes smallBounceRTL { 
+            from { transform: translateX(0); } 
+            to { transform: translateX(-5px); } 
+        }
         
         @media (max-width: 680px) { 
             .header-content { padding: 0.8rem 0.8rem 0.5rem; }
@@ -342,7 +380,6 @@
             .price { font-size: 1rem; padding: 0.15rem 0.8rem; }
         }
         
-        /* active section display */
         .menu-section { display: none; }
         .menu-section.active-section { display: block; }
     </style>
@@ -386,11 +423,11 @@
     </div>
 </div>
 
-<!-- main sections area with gradient + new card layout (name left, price right) -->
+<!-- main sections area -->
 <div class="sections-wrapper">
     <div class="cafe-container">
         <div class="sections-area" id="sectionsArea"></div>
-        <div class="footer-note"><span>from our small kitchen — served with care</span></div>
+        <div class="footer-note"><span>من مطبخنا الصغير — يُقدم بعناية ✨ | from our small kitchen — served with care</span></div>
     </div>
 </div>
 
@@ -410,27 +447,36 @@
     function generateHash(data) { return JSON.stringify(data); }
     function escapeHtml(str) { if (!str) return ''; return str.replace(/[&<>]/g, m => m === '&' ? '&amp;' : m === '<' ? '&lt;' : '&gt;'); }
     
-    // get category display name based on language
+    // FIXED: Get category display name with full Arabic/English support
     function getCategoryDisplayName(category) {
-        if (currentLanguage === 'en') return category.label_en || category.label || category.id;
-        return category.label_ar || category.title || category.id;
+        if (currentLanguage === 'en') {
+            return category.label_en || category.label || category.id || 'Category';
+        } else {
+            // Arabic - use label_ar first, fallback to label_en or id
+            return category.label_ar || category.label_en || category.label || category.id || 'قسم';
+        }
     }
     
-    // get item name based on language
-  function getItemName(item) {
-    if (currentLanguage === 'en') {
-        return item.name_en || item.name_ar || item.name || 'Item';
+    // FIXED: Get item name with proper Arabic/English fallback
+    function getItemName(item) {
+        if (currentLanguage === 'en') {
+            // English: prefer name_en, fallback to name_ar, then name, then default
+            return item.name_en || item.name_ar || item.name || 'Item';
+        } else {
+            // Arabic: prefer name_ar, fallback to name_en, then name, then default Arabic text
+            return item.name_ar || item.name_en || item.name || 'عنصر';
+        }
     }
-    // For Arabic: use name_ar, fallback to name_en, then name
-    return item.name_ar || item.name_en || item.name || 'عنصر';
-}
+    
     function applyRTLBasedOnLanguage() {
         if (currentLanguage === 'ar') {
             document.body.classList.add('rtl');
             document.documentElement.lang = 'ar';
+            document.documentElement.dir = 'rtl';
         } else {
             document.body.classList.remove('rtl');
             document.documentElement.lang = 'en';
+            document.documentElement.dir = 'ltr';
         }
         setTimeout(updateScrollHintsVisibility, 50);
     }
@@ -462,7 +508,6 @@
                 allSections.forEach(section => {
                     section.classList.toggle('active-section', section.dataset.sectionId === cat.id);
                 });
-                // smooth scroll nav button into view
                 btn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
             });
             container.appendChild(btn);
@@ -480,7 +525,7 @@
         }
     }
     
-    // Scroll animation on first load to show hidden categories
+    // Scroll animation on first load
     function triggerScrollHintAnimation() {
         if (scrollHintAnimationShown) return;
         const scrollDiv = document.getElementById('scrollMenuContainer');
@@ -513,10 +558,6 @@
                 scrollDiv.scrollTo({ left: originalScroll, behavior: 'smooth' });
                 setTimeout(() => { scrollDiv.style.scrollBehavior = 'smooth'; }, 400);
             }, 550);
-        } else {
-            const firstBtn = document.querySelector('.cat-btn');
-            if (firstBtn) firstBtn.style.animation = 'fadePulse 0.9s ease 2';
-            setTimeout(() => { if(firstBtn) firstBtn.style.animation = ''; }, 1900);
         }
     }
     
@@ -528,12 +569,12 @@
                 if (categoryButtonsRef[idx]) categoryButtonsRef[idx].textContent = getCategoryDisplayName(cat);
             });
         } else { rebuildNavButtons(); }
-        // update section titles and also re-render items completely (because item names change)
-        // easiest: rebuild full sections to reflect new item names
-        createMenuSectionsFromData();  // refreshes all cards with proper names
+        // rebuild sections to reflect new item names
+        createMenuSectionsFromData();
         applyRTLBasedOnLanguage();
         const toggleSpan = document.getElementById('langToggleText');
         if (toggleSpan) toggleSpan.innerHTML = currentLanguage === 'ar' ? '🇸🇦 العربية / English' : 'English / العربية';
+        
         // preserve active category after re-render
         const activeCatBtn = document.querySelector('.cat-btn.active');
         if (activeCatBtn && categoryButtonsRef.length) {
@@ -547,7 +588,7 @@
         }
     }
     
-    // create cards with LEFT side: item name only, RIGHT side: price only
+    // Create cards with LEFT side: item name, RIGHT side: price
     function createMenuSectionsFromData() {
         const sectionsArea = document.getElementById('sectionsArea');
         if (!sectionsArea || !currentMenuData) return;
@@ -562,19 +603,26 @@
             titleEl.textContent = getCategoryDisplayName(category);
             sectionDiv.appendChild(titleEl);
             
-            category.items.forEach(item => {
-                const card = document.createElement('div');
-                card.className = 'menu-card';
-                const itemNameSpan = document.createElement('div');
-                itemNameSpan.className = 'item-name';
-                itemNameSpan.textContent = getItemName(item);
-                const priceSpan = document.createElement('div');
-                priceSpan.className = 'price';
-                priceSpan.textContent = item.price;
-                card.appendChild(itemNameSpan);
-                card.appendChild(priceSpan);
-                sectionDiv.appendChild(card);
-            });
+            if (category.items && category.items.length) {
+                category.items.forEach(item => {
+                    const card = document.createElement('div');
+                    card.className = 'menu-card';
+                    const itemNameSpan = document.createElement('div');
+                    itemNameSpan.className = 'item-name';
+                    itemNameSpan.textContent = getItemName(item);
+                    const priceSpan = document.createElement('div');
+                    priceSpan.className = 'price';
+                    priceSpan.textContent = item.price || '0 EGP';
+                    card.appendChild(itemNameSpan);
+                    card.appendChild(priceSpan);
+                    sectionDiv.appendChild(card);
+                });
+            } else {
+                const emptyCard = document.createElement('div');
+                emptyCard.className = 'menu-card';
+                emptyCard.innerHTML = `<div class="item-name" style="opacity:0.7;">${currentLanguage === 'ar' ? 'لا توجد أصناف حالياً' : 'No items available'}</div><div class="price">-</div>`;
+                sectionDiv.appendChild(emptyCard);
+            }
             sectionsArea.appendChild(sectionDiv);
             allSections.push(sectionDiv);
         });
@@ -621,7 +669,12 @@
         } catch (error) {
             console.error(error);
             const area = document.getElementById('sectionsArea');
-            if (area && !currentMenuData) area.innerHTML = '<div style="text-align:center;padding:2rem;">⚠️ Unable to load menu. Ensure data.json exists.</div>';
+            if (area && !currentMenuData) {
+                area.innerHTML = `<div style="text-align:center;padding:2rem;background:rgba(255,255,250,0.9);border-radius:28px;">
+                    <i class="fas fa-database"></i> ⚠️ Unable to load menu. Ensure data.json exists.<br>
+                    <small>تعذر تحميل القائمة. تأكد من وجود ملف data.json</small>
+                </div>`;
+            }
             return false;
         }
     }
