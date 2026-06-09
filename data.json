@@ -509,22 +509,22 @@
         {
           "name": "Mango",
           "desc": "مانجو",
-          "price": "100.00"
+          "price": "110.00"
         },
         {
           "name": "Strawberry",
           "desc": "فراولة",
-          "price": "95.00"
+          "price": "110.00"
         },
         {
           "name": "Banana",
           "desc": "موز",
-          "price": "95.00"
+          "price": "100.00"
         },
         {
           "name": "Berries",
           "desc": "توت",
-          "price": "95.00"
+          "price": "100.00"
         },
         {
           "name": "Vanilla",
