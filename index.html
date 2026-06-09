@@ -417,11 +417,13 @@
     }
     
     // get item name based on language
-    function getItemName(item) {
-        if (currentLanguage === 'en') return item.name_en || item.name;
-        return item.name_ar || item.name;
+  function getItemName(item) {
+    if (currentLanguage === 'en') {
+        return item.name_en || item.name_ar || item.name || 'Item';
     }
-    
+    // For Arabic: use name_ar, fallback to name_en, then name
+    return item.name_ar || item.name_en || item.name || 'عنصر';
+}
     function applyRTLBasedOnLanguage() {
         if (currentLanguage === 'ar') {
             document.body.classList.add('rtl');
