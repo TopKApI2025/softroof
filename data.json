@@ -375,27 +375,27 @@
         {
           "name": "Caramel",
           "desc": "كراميل",
-          "price": "100.00"
+          "price": "110.00"
         },
         {
           "name": "Strawberry",
           "desc": "فراولة",
-          "price": "90.00"
+          "price": "100.00"
         },
         {
           "name": "Chocolate",
           "desc": "شوكلت",
-          "price": "110.00"
+          "price": "120.00"
         },
         {
           "name": "Oreo",
           "desc": "اوريو",
-          "price": "120.00"
+          "price": "130.00"
         },
         {
           "name": "Vanilla",
           "desc": "فانيليا",
-          "price": "90.00"
+          "price": "95.00"
         },
         {
           "name": "Lotus",
