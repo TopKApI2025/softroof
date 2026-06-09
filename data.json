@@ -259,12 +259,12 @@
         {
           "name": "Caramel",
           "desc": "كراميل",
-          "price": "100.00"
+          "price": "110.00"
         },
         {
           "name": "Vanilla",
           "desc": "فانيليا",
-          "price": "95.00"
+          "price": "100.00"
         }
       ]
     },
@@ -276,12 +276,12 @@
         {
           "name": "Mango",
           "desc": "مانجو",
-          "price": "100.00"
+          "price": "110.00"
         },
         {
           "name": "Watermelon",
           "desc": "بطيخ",
-          "price": "100.00"
+          "price": "110.00"
         },
         {
           "name": "Guava",
