@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Soft Roof Cafe Menu | bilingual sticky menu</title>
+    <title>Soft Roof Cafe | bilingual scroll menu · item | price</title>
     <link href="https://fonts.googleapis.com/css2?family=Bona+Nova+SC:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
@@ -118,7 +118,7 @@
         }
         .social-icon:hover { color: #ffffff; background: #3f6830cc; transform: translateY(-2px); border-color: #e9f5dc; }
         
-        /* ========== STICKY SCROLL MENU ========== */
+        /* ========== STICKY SCROLL MENU (with animation hint) ========== */
         .sticky-menu-container {
             position: sticky;
             top: 0;
@@ -131,7 +131,6 @@
             transition: all 0.2s ease;
             box-shadow: 0 4px 12px rgba(0,0,0,0.03);
         }
-        /* when sticky active subtle shadow */
         .sticky-menu-container.sticky-active {
             box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
             background: rgba(254, 250, 245, 0.96);
@@ -153,31 +152,14 @@
             scroll-behavior: smooth;
             -webkit-overflow-scrolling: touch;
         }
-        .scroll-menu:active {
-            cursor: grabbing;
-        }
-        .scroll-menu::-webkit-scrollbar {
-            height: 5px;
-        }
-        .scroll-menu::-webkit-scrollbar-track {
-            background: #eae6df;
-            border-radius: 10px;
-        }
-        .scroll-menu::-webkit-scrollbar-thumb {
-            background: #b9cfaa;
-            border-radius: 10px;
-        }
-        .scroll-menu::-webkit-scrollbar-thumb:hover {
-            background: #8fb073;
-        }
+        .scroll-menu:active { cursor: grabbing; }
+        .scroll-menu::-webkit-scrollbar { height: 5px; }
+        .scroll-menu::-webkit-scrollbar-track { background: #eae6df; border-radius: 10px; }
+        .scroll-menu::-webkit-scrollbar-thumb { background: #b9cfaa; border-radius: 10px; }
+        .scroll-menu::-webkit-scrollbar-thumb:hover { background: #8fb073; }
         
-        .menu-buttons {
-            display: inline-flex;
-            gap: 0.8rem;
-            padding: 0.2rem 0.1rem;
-        }
+        .menu-buttons { display: inline-flex; gap: 0.8rem; padding: 0.2rem 0.1rem; }
         
-        /* edge fade hints for scrollable area */
         .scroll-hint-left, .scroll-hint-right {
             position: absolute;
             top: 0;
@@ -187,14 +169,8 @@
             z-index: 5;
             transition: opacity 0.25s ease;
         }
-        .scroll-hint-left {
-            left: 0;
-            background: linear-gradient(to right, rgba(254,250,245,0.95), transparent);
-        }
-        .scroll-hint-right {
-            right: 0;
-            background: linear-gradient(to left, rgba(254,250,245,0.95), transparent);
-        }
+        .scroll-hint-left { left: 0; background: linear-gradient(to right, rgba(254,250,245,0.95), transparent); }
+        .scroll-hint-right { right: 0; background: linear-gradient(to left, rgba(254,250,245,0.95), transparent); }
         
         .cat-btn {
             font-family: 'Bona Nova SC', serif;
@@ -210,18 +186,10 @@
             box-shadow: 0 1px 2px rgba(0,0,0,0.04);
             white-space: nowrap;
         }
-        .cat-btn.active {
-            background: #3f6830;
-            color: white;
-            border-color: #3f6830;
-            box-shadow: 0 4px 8px rgba(63,104,48,0.2);
-        }
-        .cat-btn:hover:not(.active) {
-            background: #eef5e8;
-            transform: translateY(-1px);
-        }
+        .cat-btn.active { background: #3f6830; color: white; border-color: #3f6830; box-shadow: 0 4px 8px rgba(63,104,48,0.2); }
+        .cat-btn:hover:not(.active) { background: #eef5e8; transform: translateY(-1px); }
         
-        /* --- BLUR GRADIENT BACKGROUND FOR SECTIONS AREA --- */
+        /* --- item cards: LEFT = name (only), RIGHT = price only --- */
         .sections-wrapper {
             position: relative;
             background: radial-gradient(circle at 10% 30%, rgba(225, 235, 210, 0.4), rgba(250, 245, 235, 0.7));
@@ -231,19 +199,59 @@
             padding: 1.2rem 0 2rem;
             box-shadow: inset 0 1px 20px rgba(160, 140, 110, 0.08), 0 8px 20px rgba(0,0,0,0.02);
         }
-        /* enhance glassmorphism edge */
-        .sections-area {
-            position: relative;
-            z-index: 2;
-        }
         
-        .simple-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.5rem; }
-        .menu-card { background: rgba(255, 255, 250, 0.92); backdrop-filter: blur(2px); border-radius: 24px; padding: 1.2rem 1.4rem; border: 1px solid rgba(220, 230, 200, 0.6); transition: 0.2s ease; box-shadow: 0 4px 12px rgba(0,0,0,0.02); }
-        .menu-card:hover { background: rgba(255, 255, 250, 0.98); border-color: #cfe0c2; transform: translateY(-2px); box-shadow: 0 12px 22px rgba(0,0,0,0.05); }
-        .item-name { font-size: 1.4rem; font-weight: 700; color: #345e25; }
-        .item-desc { font-size: 1.6rem; color: #37352e; margin: 0.6rem 0 0.4rem; font-weight: bolder; line-height: 1.5; margin-bottom: -10px; }
-        .price { font-size: 1.7rem; font-weight: 600; color: #578b3b; margin-top: 0.7rem; border-top: 1px solid rgba(200, 210, 180, 0.5); padding-top: 0.6rem; }
-        .section-title { font-size: 1.8rem; font-weight: 700; margin-bottom: 1.3rem; color: #2d5720; border-left: 5px solid #9bc07c; padding-left: 0.9rem; text-shadow: 0 1px 1px rgba(255,255,210,0.3); }
+        .sections-area { position: relative; z-index: 2; }
+        
+        /* new modern card: flex row, left name, right price */
+        .menu-card {
+            background: rgba(255, 255, 250, 0.96);
+            backdrop-filter: blur(2px);
+            border-radius: 28px;
+            padding: 1rem 1.6rem;
+            margin-bottom: 1.2rem;
+            border: 1px solid rgba(220, 230, 200, 0.7);
+            transition: all 0.2s ease;
+            box-shadow: 0 5px 12px rgba(0,0,0,0.03);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+        }
+        .menu-card:hover {
+            background: rgba(255, 255, 250, 1);
+            border-color: #cfe0c2;
+            transform: translateY(-2px);
+            box-shadow: 0 14px 24px rgba(0,0,0,0.05);
+        }
+        .item-name {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #345e25;
+            letter-spacing: -0.2px;
+            flex: 1;
+            text-align: left;
+        }
+        .price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #c17b3a;
+            background: #fef6e8;
+            padding: 0.25rem 1.2rem;
+            border-radius: 50px;
+            white-space: nowrap;
+            border: 1px solid #f3e1c4;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+            line-height: 1.3;
+        }
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 1.3rem;
+            color: #2d5720;
+            border-left: 5px solid #9bc07c;
+            padding-left: 0.9rem;
+            text-shadow: 0 1px 1px rgba(255,255,210,0.3);
+        }
         
         .footer-note { text-align: center; margin-top: 2.5rem; font-size: 0.75rem; color: #8fa282; border-top: 1px solid rgba(200, 210, 180, 0.5); padding-top: 1.8rem; }
         
@@ -273,9 +281,7 @@
             75% { transform: translateX(6px); opacity: 1; }
             100% { transform: translateX(0); opacity: 0.7; }
         }
-        .scroll-hint-highlight {
-            animation: gentleScrollHint 1.2s ease-in-out 2;
-        }
+        .scroll-hint-highlight { animation: gentleScrollHint 1.2s ease-in-out 2; }
         .scroll-arrow-tip {
             position: absolute;
             right: 20px;
@@ -303,9 +309,12 @@
             100% { opacity: 0; transform: translateY(-12px); visibility: hidden; }
         }
         
+        /* RTL adjustments */
         body.rtl { direction: rtl; text-align: right; }
         body.rtl .section-title { border-left: none; border-right: 5px solid #9bc07c; padding-left: 0; padding-right: 0.9rem; }
-        body.rtl .price { text-align: right; }
+        body.rtl .menu-card { flex-direction: row-reverse; }
+        body.rtl .item-name { text-align: right; }
+        body.rtl .price { text-align: left; }
         body.rtl .lang-switch-wrapper { justify-content: flex-start; }
         body.rtl .scroll-hint-left { background: linear-gradient(to left, rgba(254,250,245,0.95), transparent); left: auto; right: 0; }
         body.rtl .scroll-hint-right { background: linear-gradient(to right, rgba(254,250,245,0.95), transparent); right: auto; left: 0; }
@@ -322,10 +331,20 @@
             .manual-refresh-btn { padding: 6px 12px; font-size: 0.7rem; bottom: 10px; right: 10px; }
             .lang-toggle { padding: 0.4rem 1rem; font-size: 0.75rem; }
             .social-icon { width: 32px; height: 32px; font-size: 1rem; }
-            .header-bg::before { filter: blur(6px); }
             .scroll-arrow-tip { font-size: 0.65rem; padding: 3px 10px; top: -30px; }
             .section-title { font-size: 1.5rem; }
+            .item-name { font-size: 1.2rem; }
+            .price { font-size: 1.2rem; padding: 0.2rem 1rem; }
+            .menu-card { padding: 0.8rem 1.2rem; }
         }
+        @media (max-width: 480px) {
+            .item-name { font-size: 1.05rem; }
+            .price { font-size: 1rem; padding: 0.15rem 0.8rem; }
+        }
+        
+        /* active section display */
+        .menu-section { display: none; }
+        .menu-section.active-section { display: block; }
     </style>
 </head>
 <body>
@@ -339,7 +358,7 @@
                 </button>
             </div>
             <div class="logo-block">
-                <img src="https://topkapi2025.github.io/softroof/logo.png" alt="green bean cafe" class="logo-img" id="mainLogo">
+                <img src="https://topkapi2025.github.io/softroof/logo.png" alt="soft roof cafe" class="logo-img" id="mainLogo">
                 <div class="handmade-line"></div>
                 <div class="cafe-name">Soft Roof Cafe</div>
                 <div class="tagline">specialty drinks · cozy vibes</div>
@@ -367,7 +386,7 @@
     </div>
 </div>
 
-<!-- main sections area with blur gradient background -->
+<!-- main sections area with gradient + new card layout (name left, price right) -->
 <div class="sections-wrapper">
     <div class="cafe-container">
         <div class="sections-area" id="sectionsArea"></div>
@@ -382,7 +401,7 @@
 <script>
     // ------------------------- GLOBAL STATE -------------------------
     let currentMenuData = null;
-    let currentLanguage = 'ar';
+    let currentLanguage = 'ar';   // 'ar' or 'en'
     let currentDataHash = null;
     let allSections = [];
     let categoryButtonsRef = [];
@@ -391,9 +410,16 @@
     function generateHash(data) { return JSON.stringify(data); }
     function escapeHtml(str) { if (!str) return ''; return str.replace(/[&<>]/g, m => m === '&' ? '&amp;' : m === '<' ? '&lt;' : '&gt;'); }
     
+    // get category display name based on language
     function getCategoryDisplayName(category) {
-        if (currentLanguage === 'en') return category.label || category.id;
-        return category.title || category.label || category.id;
+        if (currentLanguage === 'en') return category.label_en || category.label || category.id;
+        return category.label_ar || category.title || category.id;
+    }
+    
+    // get item name based on language
+    function getItemName(item) {
+        if (currentLanguage === 'en') return item.name_en || item.name;
+        return item.name_ar || item.name;
     }
     
     function applyRTLBasedOnLanguage() {
@@ -434,6 +460,7 @@
                 allSections.forEach(section => {
                     section.classList.toggle('active-section', section.dataset.sectionId === cat.id);
                 });
+                // smooth scroll nav button into view
                 btn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
             });
             container.appendChild(btn);
@@ -451,6 +478,7 @@
         }
     }
     
+    // Scroll animation on first load to show hidden categories
     function triggerScrollHintAnimation() {
         if (scrollHintAnimationShown) return;
         const scrollDiv = document.getElementById('scrollMenuContainer');
@@ -492,25 +520,35 @@
     
     function refreshUILanguage() {
         if (!currentMenuData) return;
+        // update category buttons text
         if (categoryButtonsRef.length === currentMenuData.length) {
             currentMenuData.forEach((cat, idx) => {
                 if (categoryButtonsRef[idx]) categoryButtonsRef[idx].textContent = getCategoryDisplayName(cat);
             });
         } else { rebuildNavButtons(); }
-        document.querySelectorAll('.menu-section').forEach((section, idx) => {
-            if (currentMenuData[idx]) {
-                const titleEl = section.querySelector('.section-title');
-                if (titleEl) titleEl.textContent = getCategoryDisplayName(currentMenuData[idx]);
-            }
-        });
+        // update section titles and also re-render items completely (because item names change)
+        // easiest: rebuild full sections to reflect new item names
+        createMenuSectionsFromData();  // refreshes all cards with proper names
         applyRTLBasedOnLanguage();
         const toggleSpan = document.getElementById('langToggleText');
         if (toggleSpan) toggleSpan.innerHTML = currentLanguage === 'ar' ? '🇸🇦 العربية / English' : 'English / العربية';
+        // preserve active category after re-render
+        const activeCatBtn = document.querySelector('.cat-btn.active');
+        if (activeCatBtn && categoryButtonsRef.length) {
+            const idx = Array.from(document.querySelectorAll('.cat-btn')).indexOf(activeCatBtn);
+            if (idx !== -1 && allSections[idx]) {
+                allSections.forEach(s => s.classList.remove('active-section'));
+                allSections[idx].classList.add('active-section');
+            }
+        } else if (allSections.length && !document.querySelector('.menu-section.active-section')) {
+            allSections[0]?.classList.add('active-section');
+        }
     }
     
+    // create cards with LEFT side: item name only, RIGHT side: price only
     function createMenuSectionsFromData() {
         const sectionsArea = document.getElementById('sectionsArea');
-        if (!sectionsArea) return;
+        if (!sectionsArea || !currentMenuData) return;
         sectionsArea.innerHTML = '';
         allSections = [];
         currentMenuData.forEach((category) => {
@@ -521,22 +559,27 @@
             titleEl.className = 'section-title';
             titleEl.textContent = getCategoryDisplayName(category);
             sectionDiv.appendChild(titleEl);
-            const gridWrapper = document.createElement('div');
-            gridWrapper.className = 'simple-grid';
+            
             category.items.forEach(item => {
                 const card = document.createElement('div');
                 card.className = 'menu-card';
-                card.innerHTML = `<div class="item-name">${escapeHtml(item.name)}</div><div class="item-desc">${escapeHtml(item.desc)}</div><div class="price">${escapeHtml(item.price)}</div>`;
-                gridWrapper.appendChild(card);
+                const itemNameSpan = document.createElement('div');
+                itemNameSpan.className = 'item-name';
+                itemNameSpan.textContent = getItemName(item);
+                const priceSpan = document.createElement('div');
+                priceSpan.className = 'price';
+                priceSpan.textContent = item.price;
+                card.appendChild(itemNameSpan);
+                card.appendChild(priceSpan);
+                sectionDiv.appendChild(card);
             });
-            sectionDiv.appendChild(gridWrapper);
             sectionsArea.appendChild(sectionDiv);
             allSections.push(sectionDiv);
         });
         if (allSections.length) allSections[0].classList.add('active-section');
         rebuildNavButtons();
         applyRTLBasedOnLanguage();
-        setTimeout(() => { if (!scrollHintAnimationShown) triggerScrollHintAnimation(); }, 400);
+        if (!scrollHintAnimationShown) setTimeout(() => triggerScrollHintAnimation(), 400);
     }
     
     async function loadMenuFromJSON(showNotification = false) {
@@ -587,14 +630,6 @@
         currentLanguage = currentLanguage === 'ar' ? 'en' : 'ar';
         localStorage.setItem('softroof_lang', currentLanguage);
         refreshUILanguage();
-        const activeButton = document.querySelector('.cat-btn.active');
-        if (activeButton && categoryButtonsRef.length) {
-            const idx = Array.from(document.querySelectorAll('.cat-btn')).indexOf(activeButton);
-            if (idx !== -1 && allSections[idx]) {
-                allSections.forEach(s => s.classList.remove('active-section'));
-                allSections[idx].classList.add('active-section');
-            }
-        } else if (allSections.length && !document.querySelector('.menu-section.active-section')) allSections[0].classList.add('active-section');
     }
     
     function initLanguagePreference() {
