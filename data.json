@@ -529,7 +529,7 @@
         {
           "name": "Vanilla",
           "desc": "فانيليا",
-          "price": "95.00"
+          "price": "100.00"
         },
         {
           "name": "Kiwi",
@@ -561,22 +561,22 @@
         {
           "name": "7UP",
           "desc": "سفن",
-          "price": "55.00"
+          "price": "60.00"
         },
         {
           "name": "coca cola",
           "desc": "كوكاكولا",
-          "price": "55.00"
+          "price": "60.00"
         },
         {
           "name": "Pepsi",
           "desc": "بيبسي",
-          "price": "55.00"
+          "price": "60.00"
         },
         {
           "name": "pepsi deit",
           "desc": "بيبسي دايت",
-          "price": "55.00"
+          "price": "60.00"
         },
         {
           "name": "V Seven",
