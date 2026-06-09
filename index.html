@@ -3,24 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Soft Roof Cafe Menu</title>
+    <title>Soft Roof Cafe Menu | bilingual menu</title>
     <link href="https://fonts.googleapis.com/css2?family=Bona+Nova+SC:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background: #fefaf5; font-family: 'Bona Nova SC', serif; color: #2c2b26; line-height: 1.4; }
+        body { background: #fefaf5; font-family: 'Bona Nova SC', serif; color: #2c2b26; line-height: 1.4; transition: all 0.2s ease; }
         .cafe-container { max-width: 1280px; margin: 0 auto; padding: 2rem 1.5rem 3rem; }
         .handmade-line { width: 70px; height: 2px; background: #d0d9c6; margin: 0.75rem auto 0.5rem; border-radius: 2px; }
         .logo-block { text-align: center; margin: 1.2rem 0 1rem; }
         .logo-img {
-    width: 206px;
-    height: 126px;
-    object-fit: cover;
-    background: #e6efdf;
-    border-radius: 20%;
-    scale: 1.58;}
+            width: 206px;
+            height: 126px;
+            object-fit: cover;
+            background: #e6efdf;
+            border-radius: 20%;
+            scale: 1.58;
+        }
         .cafe-name { font-size: 1.9rem; font-weight: 700; margin-top: 1rem; color: #3f5c2f; }
         .tagline { font-size: 0.8rem; font-style: italic; color: #8b9a7b; margin-top: 0.25rem; }
+        
+        /* language toggle button */
+        .lang-switch-wrapper {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 0.5rem;
+        }
+        .lang-toggle {
+            background: #fffaf2;
+            border: 1px solid #dce5cf;
+            border-radius: 60px;
+            padding: 0.5rem 1.2rem;
+            font-family: 'Bona Nova SC', serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #3f5c2f;
+            cursor: pointer;
+            transition: 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            backdrop-filter: blur(2px);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        .lang-toggle i { font-size: 1rem; }
+        .lang-toggle:hover {
+            background: #eef3e8;
+            border-color: #bdd0ab;
+            transform: scale(0.98);
+        }
+        
         .social-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 1.6rem; margin: 1.1rem 0 0.5rem; }
         .social-icon { color: #4f6b3c; font-size: 1.3rem; background: #ffffffcc; width: 38px; height: 38px; display: inline-flex; align-items: center; justify-content: center; border-radius: 40px; text-decoration: none; border: 1px solid #e2e9d9; transition: 0.2s ease; }
         .social-icon:hover { color: #2b6e2f; background: #f3f8ef; transform: translateY(-2px); }
@@ -37,19 +69,12 @@
         .menu-card { background: #ffffff; border-radius: 20px; padding: 1.2rem 1.4rem; border: 1px solid #ece8df; transition: 0.18s linear; }
         .menu-card:hover { border-color: #cfe0c2; background: #fffef9; }
         .item-name { font-size: 1.4rem; font-weight: 700; color: #345e25; }
-        .item-desc {
-    font-size: 1.6rem;
-    color: #37352e;
-    margin: 0.6rem 0 0.4rem;
-    font-weight: bolder;
-    line-height: 1.5;
-    margin-bottom: -10px;
-}
+        .item-desc { font-size: 1.6rem; color: #37352e; margin: 0.6rem 0 0.4rem; font-weight: bolder; line-height: 1.5; margin-bottom: -10px; }
         .price { font-size: 1.7rem; font-weight: 600; color: #578b3b; margin-top: 0.7rem; border-top: 1px solid #f0efea; padding-top: 0.6rem; }
-        .section-title { font-size: 1.7rem; font-weight: 600; margin-bottom: 1.3rem; color: #417c2c; border-left: 4px solid #bdd3ac; padding-left: 0.8rem; }
+        .section-title { font-size: 1.7rem; font-weight: 600; margin-bottom: 1.3rem; color: #417c2c; border-left: 4px solid #bdd3ac; padding-left: 0.8rem; transition: 0.1s; }
         .footer-note { text-align: center; margin-top: 3.5rem; font-size: 0.75rem; color: #acb89d; border-top: 1px solid #ece4d8; padding-top: 1.8rem; }
         
-        /* Manual Refresh Button */
+        /* manual refresh button */
         .manual-refresh-btn {
             position: fixed;
             bottom: 20px;
@@ -66,15 +91,13 @@
             z-index: 100;
             transition: all 0.2s;
         }
-        .manual-refresh-btn:hover {
-            background: #578b3b;
-            transform: scale(1.05);
-        }
+        .manual-refresh-btn:hover { background: #578b3b; transform: scale(1.05); }
         
-        /* RTL Support for Arabic */
+        /* RTL support for Arabic layout */
         body.rtl { direction: rtl; text-align: right; }
         body.rtl .section-title { border-left: none; border-right: 4px solid #bdd3ac; padding-left: 0; padding-right: 0.8rem; }
         body.rtl .price { text-align: right; }
+        body.rtl .lang-switch-wrapper { justify-content: flex-start; }
         
         @media (max-width: 680px) { 
             .cafe-container { padding: 1rem; } 
@@ -82,14 +105,22 @@
             .cat-btn { padding: 0.4rem 1.2rem; font-size: 0.85rem; } 
             .logo-img { width: 78px; height: 78px; }
             .manual-refresh-btn { padding: 6px 12px; font-size: 0.7rem; bottom: 10px; right: 10px; }
+            .lang-toggle { padding: 0.4rem 1rem; font-size: 0.75rem; }
         }
     </style>
 </head>
 <body>
 <div class="cafe-container">
+    <!-- Language switcher: placed top-right (left in RTL) -->
+    <div class="lang-switch-wrapper">
+        <button id="langToggleBtn" class="lang-toggle">
+            <i class="fas fa-globe"></i> 
+            <span id="langToggleText">العربية / English</span>
+        </button>
+    </div>
+    
     <div class="logo-block">
         <img src="https://topkapi2025.github.io/softroof/logo.png" alt="green bean cafe" class="logo-img" id="mainLogo">
-
         <div class="handmade-line"></div>
     </div>
     <div class="social-links">
@@ -105,127 +136,27 @@
     <div class="footer-note"><span>from our small kitchen — served with care</span></div>
 </div>
 
-<!-- Manual Refresh Button (visible to users) -->
-<button class="manual-refresh-btn" onclick="loadMenuFromJSON()">
+<!-- Manual Refresh Button -->
+<button class="manual-refresh-btn" onclick="refreshMenuViaUser()">
     🔄 Refresh Menu
 </button>
 
 <script>
-    let currentMenuData = null, allSections = [];
-    let currentDataHash = null; // Track if data has changed
+    // -------------------------------
+    // GLOBAL STATE
+    // -------------------------------
+    let currentMenuData = null;         // original menuCatalog array (preserves both label & title)
+    let currentLanguage = 'ar';         // 'ar' = Arabic (default), 'en' = English
+    let currentDataHash = null;
+    let allSections = [];               // DOM sections (for category visibility)
+    let categoryButtons = [];           // store button references to update text dynamically
     
-    // Generate a simple hash of the data to detect changes
+    // Helper: generate simple hash to detect JSON changes
     function generateHash(data) {
         return JSON.stringify(data);
     }
     
-    // Detect Arabic text and enable RTL
-    function detectAndEnableRTL() {
-        if (!currentMenuData) return;
-        const arabicPattern = /[\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\uFB50-\uFDFF\uFE70-\uFEFF]/;
-        let hasArabic = false;
-        
-        for (let cat of currentMenuData) {
-            if (arabicPattern.test(cat.label) || arabicPattern.test(cat.title)) {
-                hasArabic = true;
-                break;
-            }
-            for (let item of cat.items) {
-                if (arabicPattern.test(item.name) || arabicPattern.test(item.desc)) {
-                    hasArabic = true;
-                    break;
-                }
-            }
-        }
-        
-        if (hasArabic) {
-            document.body.classList.add('rtl');
-            document.documentElement.lang = 'ar';
-        } else {
-            document.body.classList.remove('rtl');
-            document.documentElement.lang = 'en';
-        }
-    }
-    
-    async function loadMenuFromJSON(showNotification = false) {
-        try {
-            const response = await fetch(`data.json?t=${Date.now()}`);
-            const text = await response.text();
-            const data = JSON.parse(text);
-            const newHash = generateHash(data.menuCatalog);
-            
-            // Check if data has actually changed
-            if (currentDataHash !== newHash) {
-                currentMenuData = data.menuCatalog;
-                currentDataHash = newHash;
-                renderFullMenu();
-                detectAndEnableRTL();
-                
-                // Optional: Show a subtle visual feedback
-                if (showNotification) {
-                    const btn = document.querySelector('.manual-refresh-btn');
-                    const originalText = btn.textContent;
-                    btn.textContent = '✓ Updated!';
-                    btn.style.background = '#4caf50';
-                    setTimeout(() => {
-                        btn.textContent = originalText;
-                        btn.style.background = '#3f6830';
-                    }, 1500);
-                }
-            }
-            return true;
-        } catch (error) {
-            console.error('Error:', error);
-            document.getElementById('sectionsArea').innerHTML = '<div style="text-align:center;padding:2rem;">⚠️ Unable to load menu. Please ensure data.json exists.</div>';
-            return false;
-        }
-    }
-    
-    function renderFullMenu() { if (!currentMenuData) return; buildNavButtons(); createMenuSections(); }
-    
-    function buildNavButtons() {
-        const container = document.getElementById('categoryButtons');
-        container.innerHTML = '';
-        currentMenuData.forEach((cat, index) => {
-            const btn = document.createElement('button');
-            btn.className = 'cat-btn' + (index === 0 ? ' active' : '');
-            btn.textContent = cat.label;
-            btn.addEventListener('click', () => {
-                document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                allSections.forEach(section => { section.classList.toggle('active-section', section.dataset.sectionId === cat.id); });
-            });
-            container.appendChild(btn);
-        });
-    }
-    
-    function createMenuSections() {
-        const sectionsArea = document.getElementById('sectionsArea');
-        sectionsArea.innerHTML = '';
-        allSections = [];
-        currentMenuData.forEach(category => {
-            const sectionDiv = document.createElement('div');
-            sectionDiv.className = 'menu-section';
-            sectionDiv.dataset.sectionId = category.id;
-            const titleEl = document.createElement('h3');
-            titleEl.className = 'section-title';
-            titleEl.textContent = category.title;
-            sectionDiv.appendChild(titleEl);
-            const gridWrapper = document.createElement('div');
-            gridWrapper.className = 'simple-grid';
-            category.items.forEach(item => {
-                const card = document.createElement('div');
-                card.className = 'menu-card';
-                card.innerHTML = `<div class="item-name">${escapeHtml(item.name)}</div><div class="item-desc">${escapeHtml(item.desc)}</div><div class="price">${escapeHtml(item.price)}</div>`;
-                gridWrapper.appendChild(card);
-            });
-            sectionDiv.appendChild(gridWrapper);
-            sectionsArea.appendChild(sectionDiv);
-            allSections.push(sectionDiv);
-        });
-        if (allSections.length) { allSections[0].classList.add('active-section'); }
-    }
-    
+    // Escape HTML safely
     function escapeHtml(str) { 
         if (!str) return ''; 
         return str.replace(/[&<>]/g, function(m) { 
@@ -236,31 +167,337 @@
         }); 
     }
     
+    // Get category display name based on current language
+    // EN -> uses "label" (english name like "Hot Drinks")
+    // AR -> uses "title" (arabic name like "مشروبات ساخنة")
+    function getCategoryDisplayName(category) {
+        if (currentLanguage === 'en') {
+            return category.label || category.id;   // fallback to id if label missing
+        } else {
+            return category.title || category.label || category.id;
+        }
+    }
+    
+    // get item name display based on language? According to requirement: only category name changes.
+    // However to keep consistency, item names & descriptions stay bilingual (they have both english name and arabic desc).
+    // But spec: "in english make the name of the category is the label, in arabic make the name of the category is title"
+    // So we only modify category headers / button labels accordingly. Items remain original (showing name+desc as they are stored).
+    // But for better UX we don't touch items (they already show both English name and Arabic desc).
+    
+    // RTL detection based on current language (force arabic to RTL, english LTR)
+    function applyRTLBasedOnLanguage() {
+        if (currentLanguage === 'ar') {
+            document.body.classList.add('rtl');
+            document.documentElement.lang = 'ar';
+            document.documentElement.dir = 'auto';
+        } else {
+            document.body.classList.remove('rtl');
+            document.documentElement.lang = 'en';
+            document.documentElement.dir = 'ltr';
+        }
+    }
+    
+    // Rebuild category navigation buttons with updated language (labels)
+    function rebuildNavButtons() {
+        const container = document.getElementById('categoryButtons');
+        if (!container || !currentMenuData) return;
+        container.innerHTML = '';
+        const btns = [];
+        
+        currentMenuData.forEach((cat, index) => {
+            const btn = document.createElement('button');
+            const displayName = getCategoryDisplayName(cat);
+            btn.className = 'cat-btn' + (index === 0 ? ' active' : '');
+            btn.textContent = displayName;
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                allSections.forEach(section => {
+                    section.classList.toggle('active-section', section.dataset.sectionId === cat.id);
+                });
+            });
+            container.appendChild(btn);
+            btns.push(btn);
+        });
+        categoryButtons = btns;
+        // After rebuilding, ensure active section matches first category if needed (maintain visibility)
+        if (allSections.length) {
+            const activeExists = document.querySelector('.menu-section.active-section');
+            if (!activeExists && allSections[0]) allSections[0].classList.add('active-section');
+        }
+    }
+    
+    // Re-render the entire menu content: categories, section titles, but preserve same structure
+    // This function updates both section headers and button texts to reflect currentLanguage
+    function refreshUILanguage() {
+        if (!currentMenuData) return;
+        
+        // 1. update category buttons text
+        if (categoryButtons.length === currentMenuData.length) {
+            currentMenuData.forEach((cat, idx) => {
+                if (categoryButtons[idx]) {
+                    categoryButtons[idx].textContent = getCategoryDisplayName(cat);
+                }
+            });
+        } else {
+            // fallback if references mismatch
+            rebuildNavButtons();
+        }
+        
+        // 2. update each section title (h3 inside .menu-section)
+        const sections = document.querySelectorAll('.menu-section');
+        sections.forEach((section, idx) => {
+            if (currentMenuData[idx]) {
+                const titleEl = section.querySelector('.section-title');
+                if (titleEl) {
+                    titleEl.textContent = getCategoryDisplayName(currentMenuData[idx]);
+                }
+            }
+        });
+        
+        // 3. ensure RTL / LTR styling based on language
+        applyRTLBasedOnLanguage();
+        
+        // optional: update button toggle text
+        const toggleSpan = document.getElementById('langToggleText');
+        if (toggleSpan) {
+            if (currentLanguage === 'ar') {
+                toggleSpan.innerHTML = '🇸🇦 العربية / English';
+            } else {
+                toggleSpan.innerHTML = 'English / العربية';
+            }
+        }
+    }
+    
+    // full render: builds DOM sections from scratch (used after JSON load)
+    function createMenuSectionsFromData() {
+        const sectionsArea = document.getElementById('sectionsArea');
+        if (!sectionsArea) return;
+        sectionsArea.innerHTML = '';
+        allSections = [];
+        
+        currentMenuData.forEach((category, idx) => {
+            const sectionDiv = document.createElement('div');
+            sectionDiv.className = 'menu-section';
+            sectionDiv.dataset.sectionId = category.id;
+            
+            const titleEl = document.createElement('h3');
+            titleEl.className = 'section-title';
+            // title based on current language
+            titleEl.textContent = getCategoryDisplayName(category);
+            sectionDiv.appendChild(titleEl);
+            
+            const gridWrapper = document.createElement('div');
+            gridWrapper.className = 'simple-grid';
+            
+            category.items.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'menu-card';
+                // Always show item.name (english drink name) and item.desc (arabic description) — already bilingual
+                // price remains numeric string
+                card.innerHTML = `
+                    <div class="item-name">${escapeHtml(item.name)}</div>
+                    <div class="item-desc">${escapeHtml(item.desc)}</div>
+                    <div class="price">${escapeHtml(item.price)}</div>
+                `;
+                gridWrapper.appendChild(card);
+            });
+            sectionDiv.appendChild(gridWrapper);
+            sectionsArea.appendChild(sectionDiv);
+            allSections.push(sectionDiv);
+        });
+        
+        if (allSections.length) {
+            allSections[0].classList.add('active-section');
+        }
+        
+        // rebuild category buttons after fresh DOM
+        rebuildNavButtons();
+        applyRTLBasedOnLanguage();
+    }
+    
+    // Load JSON and update entire UI if data changed
+    async function loadMenuFromJSON(showNotification = false) {
+        try {
+            // bust cache with timestamp
+            const response = await fetch(`data.json?t=${Date.now()}`);
+            if (!response.ok) throw new Error(`HTTP ${response.status}`);
+            const text = await response.text();
+            const fullData = JSON.parse(text);
+            const newCatalog = fullData.menuCatalog;
+            const newHash = generateHash(newCatalog);
+            
+            if (currentDataHash !== newHash) {
+                currentMenuData = newCatalog;
+                currentDataHash = newHash;
+                // Fully re-render the menu sections and buttons with current language preference
+                createMenuSectionsFromData();
+                // after fresh render, ensure language is applied to category titles/buttons again (just in case)
+                refreshUILanguage();
+                if (showNotification) {
+                    const btn = document.querySelector('.manual-refresh-btn');
+                    if (btn) {
+                        const origText = btn.textContent;
+                        btn.textContent = '✓ Updated!';
+                        btn.style.background = '#4caf50';
+                        setTimeout(() => {
+                            btn.textContent = origText;
+                            btn.style.background = '#3f6830';
+                        }, 1500);
+                    }
+                }
+                // Persist current language selection across refresh, but we already reapplied language
+                return true;
+            } else if (showNotification) {
+                // notify no changes
+                const btn = document.querySelector('.manual-refresh-btn');
+                if (btn) {
+                    const orig = btn.textContent;
+                    btn.textContent = '✓ Already latest';
+                    btn.style.background = '#7f8c6d';
+                    setTimeout(() => {
+                        btn.textContent = orig;
+                        btn.style.background = '#3f6830';
+                    }, 1000);
+                }
+            }
+            return false;
+        } catch (error) {
+            console.error('Load error:', error);
+            const area = document.getElementById('sectionsArea');
+            if (area && !currentMenuData) {
+                area.innerHTML = '<div style="text-align:center;padding:2rem;">⚠️ Unable to load menu. Please ensure data.json exists.</div>';
+            }
+            return false;
+        }
+    }
+    
+    // Function to manually refresh (explicit user action)
+    window.refreshMenuViaUser = async function() {
+        await loadMenuFromJSON(true);
+    };
+    
+    // Language toggle: switch between 'ar' and 'en'
+    function toggleLanguage() {
+        if (currentLanguage === 'ar') {
+            currentLanguage = 'en';
+        } else {
+            currentLanguage = 'ar';
+        }
+        // Save preference to localStorage for persistence
+        localStorage.setItem('softroof_lang', currentLanguage);
+        // Refresh UI texts: update category buttons text and section titles
+        refreshUILanguage();
+        // also re-trigger active category highlight: if we have any active button keep active section
+        // but category text changed, active section must remain same by ID
+        // ensure active section class based on current active button
+        const activeButton = document.querySelector('.cat-btn.active');
+        if (activeButton && categoryButtons.length) {
+            const activeIndex = Array.from(document.querySelectorAll('.cat-btn')).indexOf(activeButton);
+            if (activeIndex !== -1 && allSections[activeIndex]) {
+                allSections.forEach(sec => sec.classList.remove('active-section'));
+                allSections[activeIndex].classList.add('active-section');
+            }
+        } else if (allSections.length && !document.querySelector('.menu-section.active-section')) {
+            allSections[0].classList.add('active-section');
+        }
+        // update button toggle text style
+        const toggleSpan = document.getElementById('langToggleText');
+        if (toggleSpan) {
+            if (currentLanguage === 'ar') toggleSpan.innerHTML = '🇸🇦 العربية / English';
+            else toggleSpan.innerHTML = 'English / العربية';
+        }
+    }
+    
+    // initialize language from localStorage, default 'ar'
+    function initLanguagePreference() {
+        const saved = localStorage.getItem('softroof_lang');
+        if (saved === 'en') {
+            currentLanguage = 'en';
+        } else {
+            currentLanguage = 'ar';   // default arabic
+        }
+        // update toggle text after DOM ready
+        const toggleSpan = document.getElementById('langToggleText');
+        if (toggleSpan) {
+            if (currentLanguage === 'ar') toggleSpan.innerHTML = '🇸🇦 العربية / English';
+            else toggleSpan.innerHTML = 'English / العربية';
+        }
+        // after loading menu, apply language later in load flow
+    }
+    
+    // Setup language toggle button event
+    function bindLanguageToggle() {
+        const toggleBtn = document.getElementById('langToggleBtn');
+        if (toggleBtn) {
+            toggleBtn.addEventListener('click', () => {
+                toggleLanguage();
+            });
+        }
+    }
+    
+    // auto-check for data.json changes periodically (every 8 sec) without disturbing UI unless changed
+    let periodicCheckInterval = null;
+    function startPeriodicDataCheck() {
+        if (periodicCheckInterval) clearInterval(periodicCheckInterval);
+        periodicCheckInterval = setInterval(async () => {
+            if (!currentMenuData) return;
+            try {
+                const response = await fetch(`data.json?t=${Date.now()}`);
+                const text = await response.text();
+                const freshData = JSON.parse(text);
+                const newCatalog = freshData.menuCatalog;
+                const newHash = generateHash(newCatalog);
+                if (currentDataHash !== newHash) {
+                    console.log("Auto-detected data change, refreshing menu...");
+                    currentMenuData = newCatalog;
+                    currentDataHash = newHash;
+                    // full rerender (preserve current language)
+                    createMenuSectionsFromData();
+                    refreshUILanguage();   // reapply language on new sections
+                    // maintain active category (first if none)
+                    if (!document.querySelector('.cat-btn.active') && categoryButtons.length) {
+                        categoryButtons[0]?.classList.add('active');
+                        if (allSections[0]) {
+                            allSections.forEach(s => s.classList.remove('active-section'));
+                            allSections[0].classList.add('active-section');
+                        }
+                    }
+                }
+            } catch (err) {
+                // silent fail
+            }
+        }, 8000);
+    }
+    
+    // logo fallback
     document.getElementById('mainLogo').onerror = function() { this.style.backgroundColor = "#e0edcf"; };
     
-    // Load once on page load
-    loadMenuFromJSON();
-    
-    // Optional: Check for updates every 10 seconds but only refresh if data changed
-    setInterval(async () => {
-        try {
-            const response = await fetch(`data.json?t=${Date.now()}`);
-            const text = await response.text();
-            const data = JSON.parse(text);
-            const newHash = generateHash(data.menuCatalog);
-            
-            // Only refresh if data actually changed
-            if (currentDataHash !== newHash) {
-                console.log('Data changed! Refreshing menu...');
-                currentMenuData = data.menuCatalog;
-                currentDataHash = newHash;
-                renderFullMenu();
-                detectAndEnableRTL();
+    // ------------------------- INITIALIZATION FLOW -------------------------
+    (async function init() {
+        initLanguagePreference();    // set default language var (ar)
+        bindLanguageToggle();        // attach language switcher
+        // load initial menu data
+        await loadMenuFromJSON(false);
+        // after data is loaded and UI built, apply language on sections/buttons again to ensure category names sync
+        if (currentMenuData) {
+            // Double-check language refresh because createMenuSectionsFromData uses currentLanguage at that moment.
+            // Since currentLanguage is already 'ar' (default), category titles will be arabic.
+            // However we need to ensure that refreshUILanguage aligns with the preference.
+            refreshUILanguage(); 
+            // also ensure active category visual
+            if (allSections.length && !document.querySelector('.menu-section.active-section')) {
+                allSections[0].classList.add('active-section');
             }
-        } catch (error) {
-            console.error('Background check error:', error);
+            if (categoryButtons.length && !document.querySelector('.cat-btn.active')) {
+                categoryButtons[0]?.classList.add('active');
+            }
         }
-    }, 5000); // Check every 5 seconds, but only update if changed
+        startPeriodicDataCheck();
+    })();
+    
+    // expose for manual refresh button re-trigger (already defined)
+    // Additionally, listen to any external errors
 </script>
 </body>
 </html>
