@@ -13,7 +13,7 @@
         /* --- HEADER BACKGROUND WITH BLUR --- */
         .header-bg {
             position: relative;
-            background: #2c3a24; /* fallback solid color */
+            background: #2c3a24;
             overflow: hidden;
         }
         .header-bg::before {
@@ -28,10 +28,9 @@
             background-position: center 30%;
             background-repeat: no-repeat;
             filter: blur(8px);
-            transform: scale(1.05); /* avoids edge blur artifacts */
+            transform: scale(1.05);
             z-index: 0;
         }
-        /* dark overlay for better contrast & readability */
         .header-bg::after {
             content: "";
             position: absolute;
@@ -48,13 +47,11 @@
             padding: 1.2rem 1.5rem 1rem;
         }
         
-        /* Adjust container inside header to match main container width */
         .cafe-container {
             max-width: 1280px;
             margin: 0 auto;
             padding: 0 1.5rem;
         }
-        /* inside header we use same max-width but no extra padding double */
         .header-content .cafe-container {
             padding: 0 1.5rem;
         }
@@ -74,7 +71,6 @@
         .cafe-name { font-size: 1.9rem; font-weight: 700; margin-top: 1rem; color: #fef7e0; text-shadow: 2px 2px 5px rgba(0,0,0,0.5); }
         .tagline { font-size: 0.8rem; font-style: italic; color: #f8f0da; margin-top: 0.25rem; text-shadow: 1px 1px 2px rgba(0,0,0,0.4); }
         
-        /* language toggle button */
         .lang-switch-wrapper {
             display: flex;
             justify-content: flex-end;
@@ -122,12 +118,135 @@
         }
         .social-icon:hover { color: #ffffff; background: #3f6830cc; transform: translateY(-2px); border-color: #e9f5dc; }
         
-        /* main menu area (below the scroll-menu) */
-        .scroll-menu { margin: 2rem 0 2rem; overflow-x: auto; white-space: nowrap; scrollbar-width: thin; padding-bottom: 0.5rem; }
-        .menu-buttons { display: inline-flex; gap: 0.7rem; }
-        .cat-btn { font-family: 'Bona Nova SC', serif; background: #fffaf4; border: 1px solid #e5ecd9; padding: 0.6rem 1.5rem; font-size: 1rem; border-radius: 40px; cursor: pointer; color: #3b5530; transition: all 0.2s; }
-        .cat-btn.active { background: #3f6830; color: white; border-color: #3f6830; }
-        .cat-btn:hover:not(.active) { background: #eef5e8; }
+        /* ========== IMPROVED SCROLL MENU ========== */
+        .scroll-menu {
+            margin: 2rem 0 1.2rem;
+            overflow-x: auto;
+            overflow-y: hidden;
+            white-space: nowrap;
+            scrollbar-width: thin;
+            padding-bottom: 0.8rem;
+            position: relative;
+            cursor: grab;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+        }
+        .scroll-menu:active {
+            cursor: grabbing;
+        }
+        /* Custom scrollbar styling (Webkit) */
+        .scroll-menu::-webkit-scrollbar {
+            height: 6px;
+        }
+        .scroll-menu::-webkit-scrollbar-track {
+            background: #eae6df;
+            border-radius: 10px;
+        }
+        .scroll-menu::-webkit-scrollbar-thumb {
+            background: #b9cfaa;
+            border-radius: 10px;
+        }
+        .scroll-menu::-webkit-scrollbar-thumb:hover {
+            background: #8fb073;
+        }
+        
+        .menu-buttons {
+            display: inline-flex;
+            gap: 0.8rem;
+            padding: 0.2rem 0.1rem;
+        }
+        
+        /* visual hint: gradient fading on edges to indicate scrollability */
+        .scroll-hint-left, .scroll-hint-right {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 40px;
+            pointer-events: none;
+            z-index: 3;
+            transition: opacity 0.2s;
+        }
+        .scroll-hint-left {
+            left: 0;
+            background: linear-gradient(to right, rgba(254,250,245,0.9), transparent);
+        }
+        .scroll-hint-right {
+            right: 0;
+            background: linear-gradient(to left, rgba(254,250,245,0.9), transparent);
+        }
+        /* add subtle shadow under scroll menu to separate from content */
+        .scroll-menu-wrapper {
+            position: relative;
+        }
+        
+        .cat-btn {
+            font-family: 'Bona Nova SC', serif;
+            background: #fffaf4;
+            border: 1px solid #e5ecd9;
+            padding: 0.7rem 1.7rem;
+            font-size: 1rem;
+            border-radius: 60px;
+            cursor: pointer;
+            color: #3b5530;
+            transition: all 0.2s ease;
+            font-weight: 500;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+            white-space: nowrap;
+        }
+        .cat-btn.active {
+            background: #3f6830;
+            color: white;
+            border-color: #3f6830;
+            box-shadow: 0 4px 8px rgba(63,104,48,0.2);
+        }
+        .cat-btn:hover:not(.active) {
+            background: #eef5e8;
+            transform: translateY(-1px);
+        }
+        
+        /* highlight animation for scroll menu on first load */
+        @keyframes gentlePulse {
+            0% { box-shadow: 0 0 0 0 rgba(63,104,48,0.4); border-color: #c7ddb5; }
+            50% { box-shadow: 0 0 0 6px rgba(63,104,48,0.2); border-color: #8fb073; background: #fafff5; }
+            100% { box-shadow: 0 0 0 0 rgba(63,104,48,0); border-color: #e5ecd9; }
+        }
+        .highlight-scroll {
+            animation: gentlePulse 1.2s ease-out 2;
+            border-radius: 60px;
+        }
+        
+        /* small tooltip to indicate scroll */
+        .scroll-tip {
+            display: inline-block;
+            background: #3f6830e0;
+            backdrop-filter: blur(4px);
+            color: white;
+            font-size: 0.7rem;
+            padding: 4px 12px;
+            border-radius: 40px;
+            margin-right: 12px;
+            white-space: nowrap;
+            animation: fadeInOut 3s forwards;
+            position: absolute;
+            right: 20px;
+            top: -30px;
+            pointer-events: none;
+            z-index: 5;
+            font-weight: normal;
+            font-family: monospace;
+        }
+        @keyframes fadeInOut {
+            0% { opacity: 0; transform: translateY(8px); }
+            15% { opacity: 1; transform: translateY(0px); }
+            85% { opacity: 1; transform: translateY(0px); }
+            100% { opacity: 0; transform: translateY(-8px); visibility: hidden; }
+        }
+        /* RTL adjust for tip */
+        body.rtl .scroll-tip {
+            right: auto;
+            left: 20px;
+        }
+        
         .sections-area { margin-top: 1.8rem; min-height: 55vh; }
         .menu-section { display: none; animation: softFade 0.25s ease; }
         .menu-section.active-section { display: block; }
@@ -141,7 +260,6 @@
         .section-title { font-size: 1.7rem; font-weight: 600; margin-bottom: 1.3rem; color: #417c2c; border-left: 4px solid #bdd3ac; padding-left: 0.8rem; transition: 0.1s; }
         .footer-note { text-align: center; margin-top: 3.5rem; font-size: 0.75rem; color: #acb89d; border-top: 1px solid #ece4d8; padding-top: 1.8rem; }
         
-        /* manual refresh button */
         .manual-refresh-btn {
             position: fixed;
             bottom: 20px;
@@ -160,26 +278,24 @@
         }
         .manual-refresh-btn:hover { background: #578b3b; transform: scale(1.05); }
         
-        /* RTL support for Arabic layout */
         body.rtl { direction: rtl; text-align: right; }
         body.rtl .section-title { border-left: none; border-right: 4px solid #bdd3ac; padding-left: 0; padding-right: 0.8rem; }
         body.rtl .price { text-align: right; }
         body.rtl .lang-switch-wrapper { justify-content: flex-start; }
         
-        /* responsive adjustments for header */
+        /* responsive */
         @media (max-width: 680px) { 
             .header-content { padding: 0.8rem 0.8rem 0.5rem; }
             .cafe-container { padding: 0 1rem; }
             .cafe-name { font-size: 1.5rem; } 
-            .cat-btn { padding: 0.4rem 1.2rem; font-size: 0.85rem; } 
+            .cat-btn { padding: 0.5rem 1.2rem; font-size: 0.85rem; } 
             .logo-img { width: 78px; height: 78px; scale: 1.2; margin-top: 5px; }
             .manual-refresh-btn { padding: 6px 12px; font-size: 0.7rem; bottom: 10px; right: 10px; }
             .lang-toggle { padding: 0.4rem 1rem; font-size: 0.75rem; }
             .social-icon { width: 32px; height: 32px; font-size: 1rem; }
             .header-bg::before { filter: blur(6px); background-position: center 20%; }
+            .scroll-tip { font-size: 0.65rem; padding: 3px 10px; top: -28px; }
         }
-        
-        /* make sure background scales nicely for taller headers */
         @media (max-width: 480px) {
             .logo-img { width: 68px; height: 68px; }
             .cafe-name { font-size: 1.3rem; }
@@ -187,7 +303,6 @@
     </style>
 </head>
 <body>
-<!-- HEADER WITH BLUR BACKGROUND (from top until the scroll-menu boundary) -->
 <div class="header-bg">
     <div class="header-content">
         <div class="cafe-container">
@@ -215,50 +330,42 @@
     </div>
 </div>
 
-<!-- MAIN MENU AREA (below background, scroll-menu and content) -->
 <div class="cafe-container">
-    <div class="scroll-menu"><div class="menu-buttons" id="categoryButtons"></div></div>
+    <!-- Scroll menu wrapper with visual hints -->
+    <div class="scroll-menu-wrapper" style="position: relative;">
+        <div class="scroll-menu" id="scrollMenuContainer">
+            <div class="menu-buttons" id="categoryButtons"></div>
+        </div>
+        <!-- edge fade hints (for desktop) -->
+        <div class="scroll-hint-left" id="scrollHintLeft" style="opacity:0;"></div>
+        <div class="scroll-hint-right" id="scrollHintRight" style="opacity:1;"></div>
+        <!-- small floating tip that will show on first load -->
+        <div id="scrollTip" class="scroll-tip" style="display: none;">👉 swipe / scroll 👈</div>
+    </div>
     <div class="sections-area" id="sectionsArea"></div>
     <div class="footer-note"><span>from our small kitchen — served with care</span></div>
 </div>
 
-<!-- Manual Refresh Button -->
 <button class="manual-refresh-btn" onclick="refreshMenuViaUser()">
     🔄 Refresh Menu
 </button>
 
 <script>
-    // -------------------------------
-    // GLOBAL STATE
-    // -------------------------------
-    let currentMenuData = null;         // original menuCatalog array
-    let currentLanguage = 'ar';         // default Arabic
+    // ------------------------- GLOBAL STATE -------------------------
+    let currentMenuData = null;
+    let currentLanguage = 'ar';
     let currentDataHash = null;
     let allSections = [];
-    let categoryButtons = [];
+    let categoryButtonsRef = [];
+    let scrollHighlightShown = false;   // to show highlight animation only once
     
-    // Helper functions
-    function generateHash(data) {
-        return JSON.stringify(data);
-    }
+    // helpers
+    function generateHash(data) { return JSON.stringify(data); }
+    function escapeHtml(str) { if (!str) return ''; return str.replace(/[&<>]/g, m => m === '&' ? '&amp;' : m === '<' ? '&lt;' : '&gt;'); }
     
-    function escapeHtml(str) { 
-        if (!str) return ''; 
-        return str.replace(/[&<>]/g, function(m) { 
-            if (m === '&') return '&amp;'; 
-            if (m === '<') return '&lt;'; 
-            if (m === '>') return '&gt;'; 
-            return m; 
-        }); 
-    }
-    
-    // Get category display name based on current language (EN -> label, AR -> title)
     function getCategoryDisplayName(category) {
-        if (currentLanguage === 'en') {
-            return category.label || category.id;
-        } else {
-            return category.title || category.label || category.id;
-        }
+        if (currentLanguage === 'en') return category.label || category.id;
+        return category.title || category.label || category.id;
     }
     
     function applyRTLBasedOnLanguage() {
@@ -271,9 +378,25 @@
             document.documentElement.lang = 'en';
             document.documentElement.dir = 'ltr';
         }
+        // update edge hints direction awareness after language change (recalc scroll hints)
+        setTimeout(updateScrollHintsVisibility, 50);
     }
     
-    // Rebuild category navigation with updated language
+    // Function to update scroll hint fades based on scroll position
+    function updateScrollHintsVisibility() {
+        const scrollDiv = document.getElementById('scrollMenuContainer');
+        if (!scrollDiv) return;
+        const leftHint = document.getElementById('scrollHintLeft');
+        const rightHint = document.getElementById('scrollHintRight');
+        if (!leftHint || !rightHint) return;
+        const scrollLeft = scrollDiv.scrollLeft;
+        const maxScroll = scrollDiv.scrollWidth - scrollDiv.clientWidth;
+        // left fade visible if scrollLeft > 5px
+        leftHint.style.opacity = scrollLeft > 8 ? '1' : '0';
+        rightHint.style.opacity = (maxScroll - scrollLeft) > 8 ? '1' : '0';
+    }
+    
+    // Build category buttons with scroll awareness + highlight
     function rebuildNavButtons() {
         const container = document.getElementById('categoryButtons');
         if (!container || !currentMenuData) return;
@@ -284,34 +407,63 @@
             const btn = document.createElement('button');
             btn.className = 'cat-btn' + (index === 0 ? ' active' : '');
             btn.textContent = getCategoryDisplayName(cat);
-            btn.addEventListener('click', () => {
+            btn.addEventListener('click', (e) => {
                 document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
                 allSections.forEach(section => {
                     section.classList.toggle('active-section', section.dataset.sectionId === cat.id);
                 });
+                // optional: gently scroll button into view if needed
+                btn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
             });
             container.appendChild(btn);
             btns.push(btn);
         });
-        categoryButtons = btns;
+        categoryButtonsRef = btns;
         if (allSections.length && !document.querySelector('.menu-section.active-section') && allSections[0]) {
             allSections[0].classList.add('active-section');
         }
+        // Attach scroll listener for edge hints
+        const scrollDiv = document.getElementById('scrollMenuContainer');
+        if (scrollDiv) {
+            scrollDiv.removeEventListener('scroll', updateScrollHintsVisibility);
+            scrollDiv.addEventListener('scroll', updateScrollHintsVisibility);
+            setTimeout(updateScrollHintsVisibility, 100);
+        }
     }
     
-    // Refresh UI texts and RTL without rebuilding entire DOM (faster when switching language)
+    // Animate scroll menu to catch user attention (only once)
+    function animateScrollMenuHighlight() {
+        if (scrollHighlightShown) return;
+        scrollHighlightShown = true;
+        const scrollDiv = document.getElementById('scrollMenuContainer');
+        if (!scrollDiv) return;
+        // add highlight class to the container first button or wrapper
+        const firstBtn = document.querySelector('.cat-btn');
+        if (firstBtn) {
+            firstBtn.classList.add('highlight-scroll');
+            setTimeout(() => firstBtn.classList.remove('highlight-scroll'), 2600);
+        }
+        // show tooltip
+        const tip = document.getElementById('scrollTip');
+        if (tip) {
+            tip.style.display = 'block';
+            setTimeout(() => {
+                if (tip) tip.style.display = 'none';
+            }, 3200);
+        }
+        // also add small arrow pulse if possible
+    }
+    
     function refreshUILanguage() {
         if (!currentMenuData) return;
-        // update category buttons text
-        if (categoryButtons.length === currentMenuData.length) {
+        if (categoryButtonsRef.length === currentMenuData.length) {
             currentMenuData.forEach((cat, idx) => {
-                if (categoryButtons[idx]) categoryButtons[idx].textContent = getCategoryDisplayName(cat);
+                if (categoryButtonsRef[idx]) categoryButtonsRef[idx].textContent = getCategoryDisplayName(cat);
             });
         } else {
             rebuildNavButtons();
         }
-        // update each section title
         const sections = document.querySelectorAll('.menu-section');
         sections.forEach((section, idx) => {
             if (currentMenuData[idx]) {
@@ -320,55 +472,44 @@
             }
         });
         applyRTLBasedOnLanguage();
-        
         const toggleSpan = document.getElementById('langToggleText');
-        if (toggleSpan) {
-            if (currentLanguage === 'ar') toggleSpan.innerHTML = '🇸🇦 العربية / English';
-            else toggleSpan.innerHTML = 'English / العربية';
-        }
+        if (toggleSpan) toggleSpan.innerHTML = currentLanguage === 'ar' ? '🇸🇦 العربية / English' : 'English / العربية';
     }
     
-    // Full render: build DOM sections from data (used after JSON load)
     function createMenuSectionsFromData() {
         const sectionsArea = document.getElementById('sectionsArea');
         if (!sectionsArea) return;
         sectionsArea.innerHTML = '';
         allSections = [];
-        
-        currentMenuData.forEach((category, idx) => {
+        currentMenuData.forEach((category) => {
             const sectionDiv = document.createElement('div');
             sectionDiv.className = 'menu-section';
             sectionDiv.dataset.sectionId = category.id;
-            
             const titleEl = document.createElement('h3');
             titleEl.className = 'section-title';
             titleEl.textContent = getCategoryDisplayName(category);
             sectionDiv.appendChild(titleEl);
-            
             const gridWrapper = document.createElement('div');
             gridWrapper.className = 'simple-grid';
-            
             category.items.forEach(item => {
                 const card = document.createElement('div');
                 card.className = 'menu-card';
-                card.innerHTML = `
-                    <div class="item-name">${escapeHtml(item.name)}</div>
-                    <div class="item-desc">${escapeHtml(item.desc)}</div>
-                    <div class="price">${escapeHtml(item.price)}</div>
-                `;
+                card.innerHTML = `<div class="item-name">${escapeHtml(item.name)}</div><div class="item-desc">${escapeHtml(item.desc)}</div><div class="price">${escapeHtml(item.price)}</div>`;
                 gridWrapper.appendChild(card);
             });
             sectionDiv.appendChild(gridWrapper);
             sectionsArea.appendChild(sectionDiv);
             allSections.push(sectionDiv);
         });
-        
         if (allSections.length) allSections[0].classList.add('active-section');
         rebuildNavButtons();
         applyRTLBasedOnLanguage();
+        // after fresh creation, trigger scroll highlight on first load once
+        if (!scrollHighlightShown) setTimeout(() => animateScrollMenuHighlight(), 300);
+        // Also ensure scroll hint updates after images/menu loaded
+        setTimeout(updateScrollHintsVisibility, 200);
     }
     
-    // Load JSON from data.json
     async function loadMenuFromJSON(showNotification = false) {
         try {
             const response = await fetch(`data.json?t=${Date.now()}`);
@@ -377,24 +518,22 @@
             const fullData = JSON.parse(text);
             const newCatalog = fullData.menuCatalog;
             const newHash = generateHash(newCatalog);
-            
             if (currentDataHash !== newHash) {
                 currentMenuData = newCatalog;
                 currentDataHash = newHash;
                 createMenuSectionsFromData();
-                refreshUILanguage();   // ensure language consistency
+                refreshUILanguage();
                 if (showNotification) {
                     const btn = document.querySelector('.manual-refresh-btn');
                     if (btn) {
                         const origText = btn.textContent;
                         btn.textContent = '✓ Updated!';
                         btn.style.background = '#4caf50';
-                        setTimeout(() => {
-                            btn.textContent = origText;
-                            btn.style.background = '#3f6830';
-                        }, 1500);
+                        setTimeout(() => { btn.textContent = origText; btn.style.background = '#3f6830'; }, 1500);
                     }
                 }
+                // re-highlight scroll on data update if needed, but avoid duplicate repetitive tooltip
+                if (!scrollHighlightShown) animateScrollMenuHighlight();
                 return true;
             } else if (showNotification) {
                 const btn = document.querySelector('.manual-refresh-btn');
@@ -402,39 +541,26 @@
                     const orig = btn.textContent;
                     btn.textContent = '✓ Already latest';
                     btn.style.background = '#7f8c6d';
-                    setTimeout(() => {
-                        btn.textContent = orig;
-                        btn.style.background = '#3f6830';
-                    }, 1000);
+                    setTimeout(() => { btn.textContent = orig; btn.style.background = '#3f6830'; }, 1000);
                 }
             }
             return false;
         } catch (error) {
             console.error('Load error:', error);
             const area = document.getElementById('sectionsArea');
-            if (area && !currentMenuData) {
-                area.innerHTML = '<div style="text-align:center;padding:2rem;">⚠️ Unable to load menu. Please ensure data.json exists.</div>';
-            }
+            if (area && !currentMenuData) area.innerHTML = '<div style="text-align:center;padding:2rem;">⚠️ Unable to load menu. Ensure data.json exists.</div>';
             return false;
         }
     }
     
-    window.refreshMenuViaUser = async function() {
-        await loadMenuFromJSON(true);
-    };
+    window.refreshMenuViaUser = async function() { await loadMenuFromJSON(true); };
     
-    // Toggle language ar/en
     function toggleLanguage() {
-        if (currentLanguage === 'ar') {
-            currentLanguage = 'en';
-        } else {
-            currentLanguage = 'ar';
-        }
+        currentLanguage = currentLanguage === 'ar' ? 'en' : 'ar';
         localStorage.setItem('softroof_lang', currentLanguage);
         refreshUILanguage();
-        // maintain active category highlight after language change
         const activeButton = document.querySelector('.cat-btn.active');
-        if (activeButton && categoryButtons.length) {
+        if (activeButton && categoryButtonsRef.length) {
             const activeIndex = Array.from(document.querySelectorAll('.cat-btn')).indexOf(activeButton);
             if (activeIndex !== -1 && allSections[activeIndex]) {
                 allSections.forEach(sec => sec.classList.remove('active-section'));
@@ -447,13 +573,9 @@
     
     function initLanguagePreference() {
         const saved = localStorage.getItem('softroof_lang');
-        if (saved === 'en') currentLanguage = 'en';
-        else currentLanguage = 'ar';
+        currentLanguage = (saved === 'en') ? 'en' : 'ar';
         const toggleSpan = document.getElementById('langToggleText');
-        if (toggleSpan) {
-            if (currentLanguage === 'ar') toggleSpan.innerHTML = '🇸🇦 العربية / English';
-            else toggleSpan.innerHTML = 'English / العربية';
-        }
+        if (toggleSpan) toggleSpan.innerHTML = currentLanguage === 'ar' ? '🇸🇦 العربية / English' : 'English / العربية';
     }
     
     function bindLanguageToggle() {
@@ -471,13 +593,13 @@
                 const newCatalog = freshData.menuCatalog;
                 const newHash = generateHash(newCatalog);
                 if (currentDataHash !== newHash) {
-                    console.log("Data changed, refreshing menu...");
+                    console.log("Auto data change, refreshing");
                     currentMenuData = newCatalog;
                     currentDataHash = newHash;
                     createMenuSectionsFromData();
                     refreshUILanguage();
-                    if (!document.querySelector('.cat-btn.active') && categoryButtons.length) {
-                        categoryButtons[0]?.classList.add('active');
+                    if (!document.querySelector('.cat-btn.active') && categoryButtonsRef.length) {
+                        categoryButtonsRef[0]?.classList.add('active');
                         if (allSections[0]) {
                             allSections.forEach(s => s.classList.remove('active-section'));
                             allSections[0].classList.add('active-section');
@@ -485,7 +607,30 @@
                     }
                 }
             } catch (err) {}
-        }, 7000);
+        }, 8000);
+    }
+    
+    // manual drag scroll helper
+    function enableDragScroll() {
+        const slider = document.getElementById('scrollMenuContainer');
+        if (!slider) return;
+        let isDown = false;
+        let startX, scrollLeftStart;
+        slider.addEventListener('mousedown', (e) => {
+            isDown = true;
+            slider.style.cursor = 'grabbing';
+            startX = e.pageX - slider.offsetLeft;
+            scrollLeftStart = slider.scrollLeft;
+        });
+        window.addEventListener('mouseup', () => { isDown = false; slider.style.cursor = 'grab'; });
+        window.addEventListener('mousemove', (e) => {
+            if (!isDown) return;
+            e.preventDefault();
+            const x = e.pageX - slider.offsetLeft;
+            const walk = (x - startX) * 1.2;
+            slider.scrollLeft = scrollLeftStart - walk;
+        });
+        slider.style.cursor = 'grab';
     }
     
     document.getElementById('mainLogo').onerror = function() { this.style.backgroundColor = "#e0edcf"; };
@@ -496,14 +641,14 @@
         await loadMenuFromJSON(false);
         if (currentMenuData) {
             refreshUILanguage();
-            if (allSections.length && !document.querySelector('.menu-section.active-section')) {
-                allSections[0].classList.add('active-section');
-            }
-            if (categoryButtons.length && !document.querySelector('.cat-btn.active')) {
-                categoryButtons[0]?.classList.add('active');
-            }
+            if (allSections.length && !document.querySelector('.menu-section.active-section')) allSections[0].classList.add('active-section');
+            if (categoryButtonsRef.length && !document.querySelector('.cat-btn.active')) categoryButtonsRef[0]?.classList.add('active');
         }
         startPeriodicDataCheck();
+        enableDragScroll();
+        // additional resize and load listener to update scroll hints
+        window.addEventListener('resize', () => setTimeout(updateScrollHintsVisibility, 100));
+        setTimeout(() => { updateScrollHintsVisibility(); if (!scrollHighlightShown) animateScrollMenuHighlight(); }, 500);
     })();
 </script>
 </body>
