@@ -405,7 +405,7 @@
         {
           "name": "Kit Kat",
           "desc": "کیت کات",
-          "price": "130.00"
+          "price": "140.00"
         }
       ]
     },
@@ -417,17 +417,17 @@
         {
           "name": "Mango",
           "desc": "مانجو",
-          "price": "100.00"
+          "price": "110.00"
         },
         {
           "name": "mango peach",
           "desc": "مانجو خوخ",
-          "price": "110.00"
+          "price": "120.00"
         },
         {
           "name": "mango kiwi",
           "desc": "مانجو كيوي",
-          "price": "110.00"
+          "price": "120.00"
         },
         {
           "name": "Strawberry",
