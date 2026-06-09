@@ -167,22 +167,22 @@
         {
           "name": "Espresso Single",
           "desc": "اسبرسو سنجل",
-          "price": "60.00"
+          "price": "70.00"
         },
         {
           "name": "Double Espresso",
           "desc": "اسبرسو دبل",
-          "price": "70.00"
+          "price": "80.00"
         },
         {
           "name": "American Coffee",
           "desc": "امريكان كوفي",
-          "price": "75.00"
+          "price": "85.00"
         },
         {
           "name": "Cappuccino",
           "desc": "كابتشينو",
-          "price": "100.00"
+          "price": "110.00"
         },
         {
           "name": "Latte",
