@@ -328,12 +328,12 @@
         {
           "name": "Latte",
           "desc": "لاتيه",
-          "price": "100.00"
+          "price": "110.00"
         },
         {
           "name": "Chocolate",
           "desc": "شوكلت",
-          "price": "110.00"
+          "price": "120.00"
         },
         {
           "name": "Cappuccino",
@@ -348,7 +348,7 @@
         {
           "name": "Spanish Coffee",
           "desc": "آيس سبانيش",
-          "price": "110.00"
+          "price": "120.00"
         }
       ]
     },
